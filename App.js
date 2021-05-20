@@ -8,7 +8,6 @@
 
 import React, { useState, useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { useColorScheme } from 'react-native';
 import {
   NavigationContainer,
   DefaultTheme as NavigationDefaultTheme,
@@ -28,7 +27,6 @@ import { DrawerContent } from 'screens/DrawerContent';
 const Drawer = createDrawerNavigator();
 
 const App = () => {
-  const scheme = useColorScheme();
   const [isDarkTheme, setIsDarkTheme] = useState(false);
 
   const customDefaultTheme = {
@@ -37,8 +35,9 @@ const App = () => {
     colors: {
       ...NavigationContainer.colors,
       ...PaperDefaultTheme.colors,
+      primary: '#0a3d62',
       background: '#fff',
-      text: '#000',
+      backgroundBtn: '#fff',
     },
   };
 
@@ -48,8 +47,9 @@ const App = () => {
     colors: {
       ...NavigationDarkTheme.colors,
       ...PaperDarkTheme.colors,
+      primary: '#82ccdd',
       background: '#000',
-      text: '#fff',
+      backgroundBtn: '#fff',
     },
   };
 

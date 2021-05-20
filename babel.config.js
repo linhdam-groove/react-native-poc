@@ -14,7 +14,7 @@ module.exports = {
           '.js',
           '.json',
           '.ts',
-          'tsx',
+          '.tsx',
         ],
         alias: {
           navigators: './src/navigators',

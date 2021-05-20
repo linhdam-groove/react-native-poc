@@ -32,8 +32,8 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "POCReactNativeTests.xctest"
+               BlueprintIdentifier = "8EAB75DC265652A00046A21A"
+               BuildableName = "POCReactNativeTests.app"
                BlueprintName = "POCReactNativeTests"
                ReferencedContainer = "container:POCReactNative.xcodeproj">
             </BuildableReference>
