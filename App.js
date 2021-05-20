@@ -7,7 +7,6 @@
  */
 
 import React, { useState, useMemo } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import {
   NavigationContainer,
   DefaultTheme as NavigationDefaultTheme,
@@ -21,6 +20,7 @@ import {
 } from 'react-native-paper';
 
 import Login from 'screens/Login';
+import Register from 'screens/Register';
 import { AuthContext } from 'components/Context';
 import { DrawerContent } from 'screens/DrawerContent';
 
@@ -56,6 +56,7 @@ const App = () => {
   const theme = isDarkTheme ? customDarkTheme : customDefaultTheme;
   const authContext = useMemo(
     () => ({
+      signOut: () => {},
       toggleTheme: () => {
         setIsDarkTheme(isDarkTheme => !isDarkTheme);
       },
@@ -70,6 +71,7 @@ const App = () => {
           <Drawer.Navigator
             drawerContent={props => <DrawerContent {...props} />}>
             <Drawer.Screen name="Login" component={Login} />
+            <Drawer.Screen name="Register" component={Register} />
           </Drawer.Navigator>
         </NavigationContainer>
       </AuthContext.Provider>

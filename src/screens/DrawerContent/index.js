@@ -1,5 +1,6 @@
-import React, { useContext } from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { View, StyleSheet, Switch as SwitchNative } from 'react-native';
+import SwitchSelector from 'react-native-switch-selector';
 import {
   useTheme,
   Avatar,
@@ -12,15 +13,25 @@ import {
   Switch,
 } from 'react-native-paper';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
-
+import DropDownPicker from 'react-native-dropdown-picker';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useTranslation } from 'react-i18next';
 
 import { AuthContext } from 'components/Context';
 
 export function DrawerContent(props) {
+  const { t, i18n } = useTranslation();
   const paperTheme = useTheme();
+  const { signOut, toggleTheme } = useContext(AuthContext);
+  // const [open, setOpen] = useState(false);
+  // const [value, setValue] = useState(null);
+  // const [items, setItems] = useState([
 
-  const { toggleTheme } = useContext(AuthContext);
+  // ]);
+  const options = [
+    { label: 'Vi', value: 'vi' },
+    { label: 'En', value: 'en' },
+  ];
 
   return (
     <View style={{ flex: 1 }}>
@@ -51,8 +62,36 @@ export function DrawerContent(props) {
                 props.navigation.navigate('Login');
               }}
             />
+            <DrawerItem
+              icon={({ color, size }) => (
+                <Icon name="account-check-outline" color={color} size={size} />
+              )}
+              label="Register"
+              onPress={() => {
+                props.navigation.navigate('Register');
+              }}
+            />
           </Drawer.Section>
           <Drawer.Section title="Preferences">
+            <View style={styles.preference}>
+              <Text>Language {t('signIn')}</Text>
+
+              {/* <DropDownPicker
+                open={open}
+                value={value}
+                items={items}
+                setOpen={setOpen}
+                setValue={setValue}
+                setItems={setItems}
+              /> */}
+              <SwitchSelector
+                options={options}
+                initial={0}
+                onPress={language => {
+                  i18n.changeLanguage(language);
+                }}
+              />
+            </View>
             <TouchableRipple
               onPress={() => {
                 toggleTheme();
@@ -67,34 +106,45 @@ export function DrawerContent(props) {
           </Drawer.Section>
         </View>
       </DrawerContentScrollView>
+      <Drawer.Section style={styles.bottomDrawerSection}>
+        <DrawerItem
+          icon={({ color, size }) => (
+            <Icon name="exit-to-app" color={color} size={size} />
+          )}
+          label="SIGN OUT"
+          onPress={() => {
+            signOut();
+          }}
+        />
+      </Drawer.Section>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  drawerContent: {
-    flex: 1,
-  },
-  userInfoSection: {
-    paddingLeft: 20,
-  },
-  title: {
-    fontSize: 16,
-    marginTop: 3,
-    fontWeight: 'bold',
-  },
   caption: {
     fontSize: 14,
     lineHeight: 14,
   },
+  drawerContent: {
+    flex: 1,
+  },
+  title: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: 3,
+  },
+  userInfoSection: {
+    paddingLeft: 20,
+  },
   row: {
-    marginTop: 20,
-    flexDirection: 'row',
     alignItems: 'center',
+    flexDirection: 'row',
+    marginTop: 20,
   },
   section: {
-    flexDirection: 'row',
     alignItems: 'center',
+    flexDirection: 'row',
     marginRight: 15,
   },
   paragraph: {
@@ -105,14 +155,14 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   bottomDrawerSection: {
-    marginBottom: 15,
     borderTopColor: '#f4f4f4',
     borderTopWidth: 1,
+    marginBottom: 15,
   },
   preference: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: 12,
     paddingHorizontal: 16,
+    paddingVertical: 12,
   },
 });
