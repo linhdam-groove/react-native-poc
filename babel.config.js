@@ -13,6 +13,8 @@ module.exports = {
           '.jsx',
           '.js',
           '.json',
+          '.ts',
+          '.tsx',
         ],
         alias: {
           navigators: './src/navigators',

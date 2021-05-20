@@ -6,82 +6,75 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, { useState, useMemo } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-
+  NavigationContainer,
+  DefaultTheme as NavigationDefaultTheme,
+  DarkTheme as NavigationDarkTheme,
+} from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+  Provider as PaperProvider,
+  DefaultTheme as PaperDefaultTheme,
+  DarkTheme as PaperDarkTheme,
+} from 'react-native-paper';
 
-import TextInput from 'components/TextInput';
+import Login from 'screens/Login';
+import { AuthContext } from 'components/Context';
+import { DrawerContent } from 'screens/DrawerContent';
 
-// const Section = ({ children, title }) => {
-//   const isDarkMode = useColorScheme() === 'dark';
-//   return (
-//     <View style={styles.sectionContainer}>
-//       <Text
-//         style={[
-//           styles.sectionTitle,
-//           {
-//             color: isDarkMode ? Colors.white : Colors.black,
-//           },
-//         ]}>
-//         {title}
-//       </Text>
-//       <Text
-//         style={[
-//           styles.sectionDescription,
-//           {
-//             color: isDarkMode ? Colors.light : Colors.dark,
-//           },
-//         ]}>
-//         {children}
-//       </Text>
-//     </View>
-//   );
-// };
+const Drawer = createDrawerNavigator();
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  const customDefaultTheme = {
+    ...NavigationDefaultTheme,
+    ...PaperDefaultTheme,
+    colors: {
+      ...NavigationContainer.colors,
+      ...PaperDefaultTheme.colors,
+      primary: '#0a3d62',
+      background: '#fff',
+      backgroundBtn: '#fff',
+    },
   };
 
+  const customDarkTheme = {
+    ...NavigationDarkTheme,
+    ...PaperDarkTheme,
+    colors: {
+      ...NavigationDarkTheme.colors,
+      ...PaperDarkTheme.colors,
+      primary: '#82ccdd',
+      background: '#000',
+      backgroundBtn: '#fff',
+    },
+  };
+
+  const theme = isDarkTheme ? customDarkTheme : customDefaultTheme;
+  const authContext = useMemo(
+    () => ({
+      toggleTheme: () => {
+        setIsDarkTheme(isDarkTheme => !isDarkTheme);
+      },
+    }),
+    [],
+  );
+
   return (
-    <View style={styles.main}>
-      <Text> TEST</Text>
-      <TextInput value="123123123" style={styles.input} />
-    </View>
+    <PaperProvider theme={theme}>
+      <AuthContext.Provider value={authContext}>
+        <NavigationContainer theme={theme}>
+          <Drawer.Navigator
+            drawerContent={props => <DrawerContent {...props} />}>
+            <Drawer.Screen name="Login" component={Login} />
+          </Drawer.Navigator>
+        </NavigationContainer>
+      </AuthContext.Provider>
+    </PaperProvider>
   );
 };
-
-const styles = StyleSheet.create({
-  main: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 15,
-  },
-  input: {
-    width: '100%',
-    borderWidth: 1,
-    borderColor: '#000',
-    paddingVertical: 5,
-    paddingHorizontal: 5,
-  },
-});
 
 export default App;
