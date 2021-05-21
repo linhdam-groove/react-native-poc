@@ -1,18 +1,22 @@
-import i18next from 'i18next';
+import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-import en from './locales/en';
-import vi from './locales/vi';
+import enLanguages from './locales/en';
+import viLanguages from './locales/vi';
 
-i18next.use(initReactI18next).init({
+i18n.use(initReactI18next).init({
   lng: 'en',
   resources: {
-    en: en,
-    vi: vi,
+    en: {
+      translation: enLanguages,
+    },
+    vi: {
+      translation: viLanguages,
+    },
   },
-  react: {
-    useSuspense: false,
+  interpolation: {
+    escapeValue: false, // react already safes from xss
   },
 });
 
-export default i18next;
+export default i18n;

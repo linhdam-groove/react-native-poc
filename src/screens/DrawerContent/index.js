@@ -1,12 +1,11 @@
 import React, { useContext, useState } from 'react';
-import { View, StyleSheet, Switch as SwitchNative } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import SwitchSelector from 'react-native-switch-selector';
 import {
   useTheme,
   Avatar,
   Title,
   Caption,
-  Paragraph,
   Drawer,
   Text,
   TouchableRipple,
@@ -20,25 +19,23 @@ import { useTranslation } from 'react-i18next';
 import { AuthContext } from 'components/Context';
 
 export function DrawerContent(props) {
-  const { t, i18n } = useTranslation();
   const paperTheme = useTheme();
+  const { colors } = paperTheme;
+  const { t, i18n } = useTranslation();
   const { signOut, toggleTheme } = useContext(AuthContext);
-  // const [open, setOpen] = useState(false);
-  // const [value, setValue] = useState(null);
-  // const [items, setItems] = useState([
 
-  // ]);
   const options = [
     { label: 'Vi', value: 'vi' },
     { label: 'En', value: 'en' },
   ];
 
   return (
-    <View style={{ flex: 1 }}>
+    <View
+      style={[styles.drawerContent, { backgroundColor: colors.background }]}>
       <DrawerContentScrollView {...props}>
         <View style={styles.drawerContent}>
           <View style={styles.userInfoSection}>
-            <View style={{ flexDirection: 'row', marginTop: 15 }}>
+            <View style={styles.info}>
               <Avatar.Image
                 source={{
                   uri: 'https://api.adorable.io/avatars/50/abott@adorable.png',
@@ -74,7 +71,7 @@ export function DrawerContent(props) {
           </Drawer.Section>
           <Drawer.Section title="Preferences">
             <View style={styles.preference}>
-              <Text>Language {t('signIn')}</Text>
+              <Text>Language</Text>
 
               {/* <DropDownPicker
                 open={open}
@@ -129,6 +126,10 @@ const styles = StyleSheet.create({
   drawerContent: {
     flex: 1,
   },
+  drawerSection: {
+    marginTop: 15,
+  },
+  info: { flexDirection: 'row', marginTop: 15 },
   title: {
     fontSize: 16,
     fontWeight: 'bold',
@@ -136,23 +137,6 @@ const styles = StyleSheet.create({
   },
   userInfoSection: {
     paddingLeft: 20,
-  },
-  row: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginTop: 20,
-  },
-  section: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginRight: 15,
-  },
-  paragraph: {
-    fontWeight: 'bold',
-    marginRight: 3,
-  },
-  drawerSection: {
-    marginTop: 15,
   },
   bottomDrawerSection: {
     borderTopColor: '#f4f4f4',

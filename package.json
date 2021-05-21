@@ -15,6 +15,7 @@
     "@react-navigation/drawer": "^5.12.5",
     "@react-navigation/native": "5.9.4",
     "babel-preset-react-native": "4.0.1",
+    "i18next": "^20.2.4",
     "react": "17.0.1",
     "react-i18next": "^11.8.15",
     "react-native": "0.64.1",
