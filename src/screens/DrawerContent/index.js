@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import SwitchSelector from 'react-native-switch-selector';
 import {
   useTheme,
   Avatar,
@@ -12,11 +11,11 @@ import {
   Switch,
 } from 'react-native-paper';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
-import DropDownPicker from 'react-native-dropdown-picker';
+// import DropDownPicker from 'react-native-dropdown-picker';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTranslation } from 'react-i18next';
 
-import { AuthContext } from 'components/Context';
+import { AuthContext } from 'components/Basic/Context';
 
 export function DrawerContent(props) {
   const paperTheme = useTheme();
@@ -24,10 +23,12 @@ export function DrawerContent(props) {
   const { t, i18n } = useTranslation();
   const { signOut, toggleTheme } = useContext(AuthContext);
 
-  const options = [
+  const [open, setOpen] = useState(false);
+  const [valueLocale, setValueLocale] = useState(null);
+  const [items, setItems] = useState([
     { label: 'Vi', value: 'vi' },
     { label: 'En', value: 'en' },
-  ];
+  ]);
 
   return (
     <View
@@ -70,25 +71,6 @@ export function DrawerContent(props) {
             />
           </Drawer.Section>
           <Drawer.Section title="Preferences">
-            <View style={styles.preference}>
-              <Text>Language</Text>
-
-              {/* <DropDownPicker
-                open={open}
-                value={value}
-                items={items}
-                setOpen={setOpen}
-                setValue={setValue}
-                setItems={setItems}
-              /> */}
-              <SwitchSelector
-                options={options}
-                initial={0}
-                onPress={language => {
-                  i18n.changeLanguage(language);
-                }}
-              />
-            </View>
             <TouchableRipple
               onPress={() => {
                 toggleTheme();
@@ -100,6 +82,31 @@ export function DrawerContent(props) {
                 </View>
               </View>
             </TouchableRipple>
+
+            <View
+              style={[styles.preference, { justifyContent: 'space-between' }]}>
+              <Text>Language</Text>
+              <Text>EN</Text>
+              {/* <DropDownPicker
+                style={{
+                  width: 150,
+                  height: 30,
+                }}
+                labelStyle={{
+                  width: 50,
+                  backgroundColor: colors.background,
+                }}
+                textStyle={{
+                  fontSize: 12,
+                }}
+                open={open}
+                value={valueLocale}
+                items={items}
+                setOpen={setOpen}
+                setValue={setValueLocale}
+                setItems={setItems}
+              /> */}
+            </View>
           </Drawer.Section>
         </View>
       </DrawerContentScrollView>

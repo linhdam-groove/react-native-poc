@@ -4,7 +4,7 @@ import { useTheme } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 
-import TextInput from 'components/TextInput';
+import TextInput from 'components/Basic/TextInput';
 import StyleCommon from 'theme/StyleCommon';
 
 function Login() {
@@ -22,7 +22,7 @@ function Login() {
       <Text style={[styles.title, { color: colors.primary }]}>
         {t('login.signIn')}
       </Text>
-      <View style={[StyleCommon.wrapperInputIcon, styles.wapperInput]}>
+      <View style={[StyleCommon.wrapperInputIcon, styles.wrapperInput]}>
         <IconAntDesign
           color={colors.primary}
           name="user"
@@ -31,7 +31,7 @@ function Login() {
         />
         <TextInput style={StyleCommon.inputIcon} />
       </View>
-      <View style={[StyleCommon.wrapperInputIcon, styles.wapperInput]}>
+      <View style={[StyleCommon.wrapperInputIcon, styles.wrapperInput]}>
         <IconAntDesign
           color={colors.primary}
           name="unlock"
@@ -85,8 +85,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 40,
+    textTransform: 'uppercase',
   },
-  wapperInput: {
+  wrapperInput: {
     marginBottom: 20,
   },
   forgot: {
