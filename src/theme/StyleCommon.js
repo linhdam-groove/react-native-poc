@@ -52,7 +52,13 @@ const StyleCommon = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 10,
     fontWeight: 'bold',
+    textTransform: 'uppercase',
     overflow: 'hidden',
+  },
+  textBtn: {
+    fontWeight: 'bold',
+    textAlign: 'center',
+    textTransform: 'uppercase',
   },
 });
 

@@ -18,13 +18,19 @@ import {
   DefaultTheme as PaperDefaultTheme,
   DarkTheme as PaperDarkTheme,
 } from 'react-native-paper';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 import Login from 'screens/Login';
+import Home from 'screens/Home';
+import Setting from 'screens/Setting';
 import Register from 'screens/Register';
-import { AuthContext } from 'components/Context';
 import { DrawerContent } from 'screens/DrawerContent';
 
+import { AuthContext } from 'components/Basic/Context';
+import BottomTabs from 'components/Layout/BottomTabs';
+
 const Drawer = createDrawerNavigator();
+EStyleSheet.build();
 
 const App = () => {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
@@ -38,6 +44,8 @@ const App = () => {
       primary: '#0a3d62',
       background: '#fff',
       backgroundBtn: '#fff',
+      icon: '#ddd',
+      iconActive: '#0a3d62',
     },
   };
 
@@ -50,6 +58,8 @@ const App = () => {
       primary: '#82ccdd',
       background: '#000',
       backgroundBtn: '#fff',
+      icon: '#fff',
+      iconActive: '#82ccdd',
     },
   };
 
@@ -70,7 +80,10 @@ const App = () => {
         <NavigationContainer theme={theme}>
           <Drawer.Navigator
             drawerContent={props => <DrawerContent {...props} />}>
+            <Drawer.Screen name="BottomTabs" component={BottomTabs} />
             <Drawer.Screen name="Login" component={Login} />
+            {/* <Drawer.Screen name="Home" component={Home} /> */}
+            {/* <Drawer.Screen name="Setting" component={Setting} /> */}
             <Drawer.Screen name="Register" component={Register} />
           </Drawer.Navigator>
         </NavigationContainer>
