@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { TouchableRipple, useTheme, Switch } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
+import i18next from 'i18next';
 
 import StyleCommon from 'theme/StyleCommon';
 import { AuthContext } from 'components/Basic/Context';
@@ -10,7 +11,19 @@ function Setting() {
   const paperTheme = useTheme();
   const { colors } = paperTheme;
   const { toggleTheme } = useContext(AuthContext);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+
+  const [language, setLanguage] = useState('EN');
+
+  const handleChangeLanguage = () => {
+    if (i18next.language === 'en') {
+      i18next.changeLanguage('vi');
+      setLanguage('VI');
+    } else {
+      i18next.changeLanguage('en');
+      setLanguage('EN');
+    }
+  };
 
   return (
     <View
@@ -30,7 +43,7 @@ function Setting() {
           }}>
           <View style={styles.preference}>
             <Text style={[styles.theme, { color: colors.primary }]}>
-              Dark Theme
+              {t('global.darkTheme')}
             </Text>
             <View pointerEvents="none">
               <Switch value={paperTheme.dark} />
@@ -43,8 +56,17 @@ function Setting() {
           <Text style={[styles.theme, { color: colors.primary }]}>
             {t('global.language')}
           </Text>
-          <TouchableOpacity>
-            <Text> EN</Text>
+          <TouchableOpacity onPress={() => handleChangeLanguage()}>
+            <Text
+              style={[
+                styles.btn,
+                {
+                  color: colors.labelBtn,
+                  backgroundColor: colors.backgroundBtn,
+                },
+              ]}>
+              {language}
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -63,6 +85,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 16,
     paddingVertical: 12,
+  },
+  btn: {
+    lineHeight: 30,
+    fontWeight: 'bold',
+    borderRadius: 3,
+    overflow: 'hidden',
+    borderWidth: 1,
+    paddingHorizontal: 15,
   },
 });
 

@@ -2,9 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:POCReactNative.xcodeproj">
+      location = "group:/Users/minhao/ReactNative/react-native-poc/ios/POCReactNative.xcworkspace">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:POCReactNative.xcodeproj">
    </FileRef>
 </Workspace>

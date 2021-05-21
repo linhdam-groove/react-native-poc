@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 
 import StyleCommon from 'theme/StyleCommon';
+import { block } from 'react-native-reanimated';
 
 function Register() {
   const { t } = useTranslation();
@@ -77,12 +78,14 @@ function Register() {
 
       <TouchableOpacity
         onPress={handleRegisterAccount}
-        style={[StyleCommon.button, styles.btn]}>
+        style={{ width: '100%' }}>
         <Text
           style={[
+            StyleCommon.button,
             StyleCommon.textBtn,
+            styles.btn,
             {
-              color: colors.primary,
+              color: colors.labelBtn,
               backgroundColor: colors.backgroundBtn,
             },
           ]}>
@@ -90,7 +93,9 @@ function Register() {
         </Text>
       </TouchableOpacity>
 
-      <Text>{t('register.alreadyAccount')}</Text>
+      <Text style={[styles.haveAccount, { color: colors.primary }]}>
+        {t('register.alreadyAccount')}
+      </Text>
     </View>
   );
 }
@@ -114,6 +119,10 @@ const styles = StyleSheet.create({
   btn: {
     marginTop: 30,
     width: '100%',
+  },
+  haveAccount: {
+    marginTop: 30,
+    fontWeight: 'bold',
   },
 });
 
