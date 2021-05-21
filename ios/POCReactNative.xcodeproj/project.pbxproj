@@ -81,7 +81,7 @@
 		8EAB75A5265646DC0046A21A /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		8EAB75A6265646DC0046A21A /* Foundation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		8EAB75A7265646DC0046A21A /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
-		8EAB75DB2656528F0046A21A /* POCReactNative copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "POCReactNative copy-Info.plist"; path = "/Users/linhdam/Projects/react-native-poc/ios/POCReactNative copy-Info.plist"; sourceTree = "<absolute>"; };
+		8EAB75DB2656528F0046A21A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "/Users/linhdam/Projects/react-native-poc/ios/Info.plist"; sourceTree = "<absolute>"; };
 		8EAB75FD265652A00046A21A /* POCReactNativeTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = POCReactNativeTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EAB75FE265652A10046A21A /* POCReactNative copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "POCReactNative copy2-Info.plist"; path = "/Users/linhdam/Projects/react-native-poc/ios/POCReactNative copy2-Info.plist"; sourceTree = "<absolute>"; };
 		998004E8AD0313523899E106 /* Pods-POCReactNative.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POCReactNative.release.xcconfig"; path = "Target Support Files/Pods-POCReactNative/Pods-POCReactNative.release.xcconfig"; sourceTree = "<group>"; };
@@ -170,7 +170,7 @@
 				A0858DC4B0184153DB430FAB /* Pods */,
 				E78D1B73332E438EBE5557E2 /* Resources */,
 				8EAB75DA2656528F0046A21A /* Resources-iPad */,
-				8EAB75DB2656528F0046A21A /* POCReactNative copy-Info.plist */,
+				8EAB75DB2656528F0046A21A /* Info.plist */,
 				8EAB75FE265652A10046A21A /* POCReactNative copy2-Info.plist */,
 			);
 			indentWidth = 2;

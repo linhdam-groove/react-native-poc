@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { View, StyleSheet } from 'react-native';
 import {
   useTheme,
@@ -11,8 +11,8 @@ import {
   Switch,
 } from 'react-native-paper';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
-// import DropDownPicker from 'react-native-dropdown-picker';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import IconIon from 'react-native-vector-icons/Ionicons';
 import { useTranslation } from 'react-i18next';
 
 import { AuthContext } from 'components/Basic/Context';
@@ -22,13 +22,6 @@ export function DrawerContent(props) {
   const { colors } = paperTheme;
   const { t, i18n } = useTranslation();
   const { signOut, toggleTheme } = useContext(AuthContext);
-
-  const [open, setOpen] = useState(false);
-  const [valueLocale, setValueLocale] = useState(null);
-  const [items, setItems] = useState([
-    { label: 'Vi', value: 'vi' },
-    { label: 'En', value: 'en' },
-  ]);
 
   return (
     <View
@@ -51,6 +44,24 @@ export function DrawerContent(props) {
           </View>
 
           <Drawer.Section style={styles.drawerSection}>
+            <DrawerItem
+              icon={({ color, size }) => (
+                <Icon name="home" color={color} size={size} />
+              )}
+              label="Home"
+              onPress={() => {
+                props.navigation.navigate('Home');
+              }}
+            />
+            <DrawerItem
+              icon={({ color, size }) => (
+                <IconIon name="ios-settings-sharp" color={color} size={size} />
+              )}
+              label="Setting"
+              onPress={() => {
+                props.navigation.navigate('Setting');
+              }}
+            />
             <DrawerItem
               icon={({ color, size }) => (
                 <Icon name="account-check-outline" color={color} size={size} />
@@ -76,7 +87,7 @@ export function DrawerContent(props) {
                 toggleTheme();
               }}>
               <View style={styles.preference}>
-                <Text>Dark Theme</Text>
+                <Text style={{ color: colors.primary }}>Dark Theme</Text>
                 <View pointerEvents="none">
                   <Switch value={paperTheme.dark} />
                 </View>
@@ -87,25 +98,6 @@ export function DrawerContent(props) {
               style={[styles.preference, { justifyContent: 'space-between' }]}>
               <Text>Language</Text>
               <Text>EN</Text>
-              {/* <DropDownPicker
-                style={{
-                  width: 150,
-                  height: 30,
-                }}
-                labelStyle={{
-                  width: 50,
-                  backgroundColor: colors.background,
-                }}
-                textStyle={{
-                  fontSize: 12,
-                }}
-                open={open}
-                value={valueLocale}
-                items={items}
-                setOpen={setOpen}
-                setValue={setValueLocale}
-                setItems={setItems}
-              /> */}
             </View>
           </Drawer.Section>
         </View>

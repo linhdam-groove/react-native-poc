@@ -1,11 +1,13 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 
 import TextInput from 'components/Basic/TextInput';
 import StyleCommon from 'theme/StyleCommon';
+
+import logo from 'assets/imgs/logo.png';
 
 function Login() {
   const { colors } = useTheme();
@@ -20,7 +22,8 @@ function Login() {
         { backgroundColor: colors.background, color: colors.text },
       ]}>
       <Text style={[styles.title, { color: colors.primary }]}>
-        {t('login.signIn')}
+        {/* {t('login.signIn')} */}
+        <Image source={logo} style={styles.logo} />
       </Text>
       <View style={[StyleCommon.wrapperInputIcon, styles.wrapperInput]}>
         <IconAntDesign

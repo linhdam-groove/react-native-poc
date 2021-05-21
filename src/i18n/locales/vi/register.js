@@ -8,6 +8,7 @@ const register = {
   phone: 'Số điện thoại',
   password: 'Mật khẩu',
   confirm: 'Nhập lại mật khẩu',
+  alreadyAccount: 'Bạn đã có tài khoản?',
 };
 
 export { register };

@@ -4,10 +4,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import IconIon from 'react-native-vector-icons/Ionicons';
 import { useTheme } from 'react-native-paper';
 
-// import Home from 'screens/Home';
-// import Setting from 'screens/Setting';
-import Register from 'screens/Register';
-import Login from 'screens/Login';
+import Home from 'screens/Home';
+import Header from 'components/Layout/Header';
+import Setting from 'screens/Setting';
 
 const Tab = createBottomTabNavigator();
 
@@ -35,10 +34,8 @@ function BottomTabs() {
         activeTintColor: colors.iconActive,
         inactiveTintColor: colors.icon,
       }}>
-      <Tab.Screen name="Login" component={Login} />
-      <Tab.Screen name="Register" component={Register} />
-      {/* <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Setting" component={Setting} /> */}
+      <Tab.Screen name="Home" component={Header} />
+      <Tab.Screen name="Setting" component={Setting} />
     </Tab.Navigator>
   );
 }

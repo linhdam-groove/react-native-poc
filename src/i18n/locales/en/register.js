@@ -8,6 +8,7 @@ const register = {
   phone: 'Phone',
   password: 'Password',
   confirm: 'Confirm Password',
+  alreadyAccount: 'Already have a account?',
 };
 
 export { register };

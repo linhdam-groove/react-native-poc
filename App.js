@@ -21,13 +21,12 @@ import {
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 import Login from 'screens/Login';
-import Home from 'screens/Home';
-import Setting from 'screens/Setting';
 import Register from 'screens/Register';
 import { DrawerContent } from 'screens/DrawerContent';
 
 import { AuthContext } from 'components/Basic/Context';
 import BottomTabs from 'components/Layout/BottomTabs';
+import Home from 'screens/Home';
 
 const Drawer = createDrawerNavigator();
 EStyleSheet.build();
@@ -42,10 +41,12 @@ const App = () => {
       ...NavigationContainer.colors,
       ...PaperDefaultTheme.colors,
       primary: '#0a3d62',
+      headerBg: '#fff',
       background: '#fff',
       backgroundBtn: '#fff',
       icon: '#ddd',
       iconActive: '#0a3d62',
+      iconInActive: '#000',
     },
   };
 
@@ -55,11 +56,14 @@ const App = () => {
     colors: {
       ...NavigationDarkTheme.colors,
       ...PaperDarkTheme.colors,
-      primary: '#82ccdd',
+      black: '#000',
+      primary: '#fff',
+      headerBg: '#000',
       background: '#000',
       backgroundBtn: '#fff',
       icon: '#fff',
       iconActive: '#82ccdd',
+      iconInActive: '#fff',
     },
   };
 
@@ -80,10 +84,8 @@ const App = () => {
         <NavigationContainer theme={theme}>
           <Drawer.Navigator
             drawerContent={props => <DrawerContent {...props} />}>
-            <Drawer.Screen name="BottomTabs" component={BottomTabs} />
+            <Drawer.Screen name="Home" component={BottomTabs} />
             <Drawer.Screen name="Login" component={Login} />
-            {/* <Drawer.Screen name="Home" component={Home} /> */}
-            {/* <Drawer.Screen name="Setting" component={Setting} /> */}
             <Drawer.Screen name="Register" component={Register} />
           </Drawer.Navigator>
         </NavigationContainer>

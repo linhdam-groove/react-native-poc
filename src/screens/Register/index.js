@@ -5,12 +5,10 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
-  Alert,
 } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import EStyleSheet from 'react-native-extended-stylesheet';
 
 import StyleCommon from 'theme/StyleCommon';
 
@@ -19,7 +17,7 @@ function Register() {
   const { colors } = useTheme();
 
   const handleRegisterAccount = () => {
-    Alert('123213');
+    console.log(123123);
   };
 
   return (
@@ -83,7 +81,6 @@ function Register() {
         <Text
           style={[
             StyleCommon.textBtn,
-            ,
             {
               color: colors.primary,
               backgroundColor: colors.backgroundBtn,
@@ -92,6 +89,8 @@ function Register() {
           {t('register.title')}
         </Text>
       </TouchableOpacity>
+
+      <Text>{t('register.alreadyAccount')}</Text>
     </View>
   );
 }
