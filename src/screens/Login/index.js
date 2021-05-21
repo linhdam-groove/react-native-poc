@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useTheme } from 'react-native-paper';
-// import { Icon } from 'react-native-elements';
+import { useTranslation } from 'react-i18next';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 
 import TextInput from 'components/TextInput';
@@ -9,7 +9,7 @@ import StyleCommon from 'theme/StyleCommon';
 
 function Login() {
   const { colors } = useTheme();
-  console.log('🚀 ~ file: index.js ~ line 10 ~ Login ~ colors', colors);
+  const { t } = useTranslation();
 
   return (
     <View
@@ -19,7 +19,9 @@ function Login() {
         styles.wrapper,
         { backgroundColor: colors.background, color: colors.text },
       ]}>
-      <Text style={[styles.title, { color: colors.primary }]}>SIGN IN</Text>
+      <Text style={[styles.title, { color: colors.primary }]}>
+        {t('login.signIn')}
+      </Text>
       <View style={[StyleCommon.wrapperInputIcon, styles.wapperInput]}>
         <IconAntDesign
           color={colors.primary}
@@ -45,7 +47,7 @@ function Login() {
         />
       </View>
       <Text style={[styles.forgot, { color: colors.primary }]}>
-        Forgot Password?
+        {t('login.forgotPsw')}
       </Text>
       <Text
         style={[
@@ -56,15 +58,20 @@ function Login() {
             backgroundColor: colors.backgroundBtn,
           },
         ]}>
-        SIGN IN
+        {t('login.signIn')}
       </Text>
       <TouchableOpacity
         activeOpacity={0.3}
         style={[styles.createAcc, { color: colors.primary }]}>
-        <Text style={{ color: colors.primary }}>
-          Don't have account?
-          <Text style={styles.createNew}> Create new account </Text>
-        </Text>
+        <View style={{ flexDirection: 'row' }}>
+          <Text style={{ color: colors.primary }}>
+            {t('login.haveAccount')}
+          </Text>
+          <Text style={[styles.createNew, { color: colors.primary }]}>
+            {' '}
+            {t('login.createAccount')}
+          </Text>
+        </View>
       </TouchableOpacity>
     </View>
   );

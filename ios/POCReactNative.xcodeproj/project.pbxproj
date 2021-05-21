@@ -48,7 +48,8 @@
 		8EAB75F4265652A00046A21A /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8EAB75A6265646DC0046A21A /* Foundation.ttf */; };
 		8EAB75F5265652A00046A21A /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8EAB75A1265646DC0046A21A /* MaterialCommunityIcons.ttf */; };
 		8EAB75F6265652A00046A21A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		D755FDCFE6BF17C35F67B748 /* libPods-POCReactNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 35EEFA410B0B6D5710814491 /* libPods-POCReactNative.a */; };
+		D755FDCFE6BF17C35F67B748 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
+		E8E86E3C1781905651F8D171 /* libPods-POCReactNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DD81FCBBE33B550B7CD9B21 /* libPods-POCReactNative.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = POCReactNative/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = POCReactNative/main.m; sourceTree = "<group>"; };
 		51B0F15584A0170E9B88106D /* libPods-POCReactNative-POCReactNativeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-POCReactNative-POCReactNativeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6DD81FCBBE33B550B7CD9B21 /* libPods-POCReactNative.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-POCReactNative.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = POCReactNative/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8EAB7598265646DB0046A21A /* AntDesign.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		8EAB7599265646DB0046A21A /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
@@ -93,7 +95,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D755FDCFE6BF17C35F67B748 /* libPods-POCReactNative.a in Frameworks */,
+				D755FDCFE6BF17C35F67B748 /* BuildFile in Frameworks */,
+				E8E86E3C1781905651F8D171 /* libPods-POCReactNative.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,6 +147,7 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				51B0F15584A0170E9B88106D /* libPods-POCReactNative-POCReactNativeTests.a */,
+				6DD81FCBBE33B550B7CD9B21 /* libPods-POCReactNative.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
