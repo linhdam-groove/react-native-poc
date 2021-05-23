@@ -15,28 +15,26 @@ import StyleCommon from 'theme/StyleCommon';
 
 function Home() {
   const { colors } = useTheme();
-  const [loading, setLoading] = useState(false);
-
-  const handleLoading = () => {
-    setLoading(!loading);
-  };
 
   return (
     <View
       style={[
         StyleCommon.container,
         styles.homeScreen,
-        { backgroundColor: colors.background, color: colors.text },
+        {
+          backgroundColor: colors.background,
+          color: colors.text,
+          paddingBottom: 90,
+          marginBottom: 90,
+        },
       ]}>
       <View style={styles.videoIntro}>
         <WebView
           startInLoadingState
           allowsFullscreenVideo={false}
-          mediaPlaybackRequiresUserAction={true}
-          onShouldStartLoadWithRequest={() => true}
-          startInLoadingState={true}
+          allowsInlineMediaPlayback={true}
           source={{
-            uri: 'https://www.youtube.com/watch?v=gb0fhDfMAxw&list=RDMM&start_radio=1&rv=fbmvNG13M7Y',
+            uri: 'https://www.youtube.com/watch?v=gb0fhDfMAxw&list=RDMM&start_radio=1&rv=fbmvNG13M7Y?playsinline=1',
           }}
         />
       </View>
@@ -49,8 +47,6 @@ function Home() {
                 startInLoadingState
                 source={{ uri: item.uri }}
                 mediaPlaybackRequiresUserAction={true}
-                onShouldStartLoadWithRequest={() => true}
-                startInLoadingState={true}
               />
             </View>
             <View style={{ flex: 1 }}>

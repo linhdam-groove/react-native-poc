@@ -29,4 +29,10 @@ export const videoList = [
     title:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam quis',
   },
+  {
+    id: 6,
+    uri: 'https://www.youtube.com/watch?v=0dLr9W5BDCA',
+    title:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam quis',
+  },
 ];
