@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { TouchableRipple, useTheme, Switch } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import StyleCommon from 'theme/StyleCommon';
 import { AuthContext } from 'components/Basic/Context';
@@ -11,7 +12,7 @@ function Setting() {
   const paperTheme = useTheme();
   const { colors } = paperTheme;
   const { toggleTheme } = useContext(AuthContext);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const [language, setLanguage] = useState('EN');
 
@@ -24,6 +25,19 @@ function Setting() {
       setLanguage('EN');
     }
   };
+
+  const handleSignOut = () =>
+    Alert.alert(t('global.signOut'), 'Are you sure want to log out', [
+      {
+        text: 'No',
+        style: 'no',
+      },
+      {
+        text: 'Yes',
+        onPress: () => Alert.alert('Logout successfully'),
+        style: 'yes',
+      },
+    ]);
 
   return (
     <View
@@ -70,6 +84,19 @@ function Setting() {
           </TouchableOpacity>
         </View>
       </View>
+
+      <View>
+        <View style={styles.preference}>
+          <TouchableOpacity
+            style={styles.signOut}
+            onPress={() => handleSignOut()}>
+            <Text style={[styles.signOutText, { color: colors.primary }]}>
+              {t('global.signOut')}
+            </Text>
+            <Icon name="exit-to-app" color={colors.primary} size={25} />
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   );
 }
@@ -93,6 +120,14 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     borderWidth: 1,
     paddingHorizontal: 15,
+  },
+  signOutText: {
+    marginRight: 10,
+  },
+  signOut: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 });
 
