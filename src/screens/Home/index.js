@@ -1,17 +1,11 @@
-import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  ActivityIndicator,
-} from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { useTheme } from 'react-native-paper';
 
 import { videoList } from './mockData';
 
-import StyleCommon from 'theme/StyleCommon';
+import StyleCommon from 'themes';
 
 function Home() {
   const { colors } = useTheme();
@@ -23,9 +17,7 @@ function Home() {
         styles.homeScreen,
         {
           backgroundColor: colors.background,
-          color: colors.text,
-          paddingBottom: 90,
-          marginBottom: 90,
+          color: colors.primary,
         },
       ]}>
       <View style={styles.videoIntro}>
@@ -38,7 +30,7 @@ function Home() {
           }}
         />
       </View>
-      <FlatList
+      {/* <FlatList
         data={videoList}
         renderItem={({ item }) => (
           <View style={styles.wrapperVideo}>
@@ -50,12 +42,14 @@ function Home() {
               />
             </View>
             <View style={{ flex: 1 }}>
-              <Text style={styles.videoTitle}>{item.title}</Text>
+              <Text style={[styles.videoTitle, colors.primary]}>
+                {item.title}
+              </Text>
             </View>
           </View>
         )}
         keyExtractor={item => item.id}
-      />
+      /> */}
     </View>
   );
 }
@@ -70,8 +64,9 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   videoIntro: {
-    height: 150,
+    height: '100%',
     marginBottom: 20,
+    // paddingBottom: 20,
   },
   wrapperVideo: {
     flexDirection: 'row',

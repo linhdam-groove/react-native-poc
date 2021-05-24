@@ -87,7 +87,9 @@ export function DrawerContent(props) {
                 toggleTheme();
               }}>
               <View style={styles.preference}>
-                <Text style={{ color: colors.primary }}>Dark Theme</Text>
+                <Text style={{ color: colors.primary }}>
+                  {t('global.darkTheme')}
+                </Text>
                 <View pointerEvents="none">
                   <Switch value={paperTheme.dark} />
                 </View>
