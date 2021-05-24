@@ -93,12 +93,6 @@ export function DrawerContent(props) {
                 </View>
               </View>
             </TouchableRipple>
-
-            <View
-              style={[styles.preference, { justifyContent: 'space-between' }]}>
-              <Text>Language</Text>
-              <Text>EN</Text>
-            </View>
           </Drawer.Section>
         </View>
       </DrawerContentScrollView>

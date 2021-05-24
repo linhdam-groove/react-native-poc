@@ -22,8 +22,8 @@ function Login() {
         { backgroundColor: colors.background, color: colors.text },
       ]}>
       <Text style={[styles.title, { color: colors.primary }]}>
-        {/* {t('login.signIn')} */}
-        <Image source={logo} style={styles.logo} />
+        {t('login.signIn')}
+        {/* <Image source={logo} style={styles.logo} /> */}
       </Text>
       <View style={[StyleCommon.wrapperInputIcon, styles.wrapperInput]}>
         <IconAntDesign
@@ -57,7 +57,7 @@ function Login() {
           StyleCommon.button,
           styles.btn,
           {
-            color: colors.primary,
+            color: colors.labelBtn,
             backgroundColor: colors.backgroundBtn,
           },
         ]}>

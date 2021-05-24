@@ -1,7 +1,9 @@
-import React, { useContext } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { TouchableRipple, useTheme, Switch } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
+import i18next from 'i18next';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import StyleCommon from 'theme/StyleCommon';
 import { AuthContext } from 'components/Basic/Context';
@@ -11,6 +13,31 @@ function Setting() {
   const { colors } = paperTheme;
   const { toggleTheme } = useContext(AuthContext);
   const { t } = useTranslation();
+
+  const [language, setLanguage] = useState('EN');
+
+  const handleChangeLanguage = () => {
+    if (i18next.language === 'en') {
+      i18next.changeLanguage('vi');
+      setLanguage('VI');
+    } else {
+      i18next.changeLanguage('en');
+      setLanguage('EN');
+    }
+  };
+
+  const handleSignOut = () =>
+    Alert.alert(t('global.signOut'), 'Are you sure want to log out', [
+      {
+        text: 'No',
+        style: 'no',
+      },
+      {
+        text: 'Yes',
+        onPress: () => Alert.alert('Logout successfully'),
+        style: 'yes',
+      },
+    ]);
 
   return (
     <View
@@ -30,7 +57,7 @@ function Setting() {
           }}>
           <View style={styles.preference}>
             <Text style={[styles.theme, { color: colors.primary }]}>
-              Dark Theme
+              {t('global.darkTheme')}
             </Text>
             <View pointerEvents="none">
               <Switch value={paperTheme.dark} />
@@ -43,8 +70,30 @@ function Setting() {
           <Text style={[styles.theme, { color: colors.primary }]}>
             {t('global.language')}
           </Text>
-          <TouchableOpacity>
-            <Text> EN</Text>
+          <TouchableOpacity onPress={() => handleChangeLanguage()}>
+            <Text
+              style={[
+                styles.btn,
+                {
+                  color: colors.labelBtn,
+                  backgroundColor: colors.backgroundBtn,
+                },
+              ]}>
+              {language}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      <View>
+        <View style={styles.preference}>
+          <TouchableOpacity
+            style={styles.signOut}
+            onPress={() => handleSignOut()}>
+            <Text style={[styles.signOutText, { color: colors.primary }]}>
+              {t('global.signOut')}
+            </Text>
+            <Icon name="exit-to-app" color={colors.primary} size={25} />
           </TouchableOpacity>
         </View>
       </View>
@@ -63,6 +112,22 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 16,
     paddingVertical: 12,
+  },
+  btn: {
+    lineHeight: 30,
+    fontWeight: 'bold',
+    borderRadius: 3,
+    overflow: 'hidden',
+    borderWidth: 1,
+    paddingHorizontal: 15,
+  },
+  signOutText: {
+    marginRight: 10,
+  },
+  signOut: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 });
 
