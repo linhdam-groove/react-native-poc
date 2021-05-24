@@ -5,6 +5,10 @@ const global = {
   welcome: 'Chào mừng đến với POCReactNative',
   signInWithAcc: 'Đăng nhập bằng tài khoản',
   getStarted: 'Bắt đầu',
+  confirmLogout: 'Bạn muốn đăng xuất?',
+  yes: 'Có',
+  no: 'Không',
+  logoutSuccess: 'Đăng xuất thành công!',
 };
 
 export { global };

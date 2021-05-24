@@ -66,7 +66,7 @@ const App = () => {
     [],
   );
 
-  let isLogIn = false;
+  let isLogIn = true;
 
   return (
     <PaperProvider theme={theme}>
