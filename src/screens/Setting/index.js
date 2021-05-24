@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import StyleCommon from 'theme/StyleCommon';
+import StyleCommon from 'themes';
 import { AuthContext } from 'components/Basic/Context';
 
 function Setting() {

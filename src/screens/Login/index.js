@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 
 import TextInput from 'components/Basic/TextInput';
-import StyleCommon from 'theme/StyleCommon';
+import StyleCommon from 'themes';
 
 import logo from 'assets/imgs/logo.png';
 

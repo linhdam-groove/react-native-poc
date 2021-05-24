@@ -1,17 +1,11 @@
-import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  ActivityIndicator,
-} from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { useTheme } from 'react-native-paper';
 
 import { videoList } from './mockData';
 
-import StyleCommon from 'theme/StyleCommon';
+import StyleCommon from 'themes';
 
 function Home() {
   const { colors } = useTheme();
