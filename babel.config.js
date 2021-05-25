@@ -19,9 +19,10 @@ module.exports = {
         alias: {
           navigators: './src/navigators',
           screens: './src/screens',
-          theme: './src/theme',
+          themes: './src/themes',
           utils: './src/utils',
           components: './src/components',
+          store: './src/store',
           i18n: './src/i18n',
         },
       },

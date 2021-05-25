@@ -1,6 +1,9 @@
 import { StyleSheet } from 'react-native';
 
 const StyleCommon = StyleSheet.create({
+  fullWidth: {
+    width: '100%',
+  },
   centerContent: {
     height: '100%',
     width: '100%',

@@ -10,8 +10,7 @@ import { useTheme } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 
-import StyleCommon from 'theme/StyleCommon';
-import { block } from 'react-native-reanimated';
+import StyleCommon from 'themes';
 
 function Register() {
   const { t } = useTranslation();
