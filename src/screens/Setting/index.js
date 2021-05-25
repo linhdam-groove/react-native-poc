@@ -29,13 +29,13 @@ function Setting() {
   const handleSignOut = () =>
     Alert.alert(t('global.signOut'), 'Are you sure want to log out', [
       {
-        text: 'No',
-        style: 'no',
+        text: t('global.yes'),
+        style: 'yes',
       },
       {
-        text: 'Yes',
+        text: t('global.no'),
         onPress: () => Alert.alert('Logout successfully'),
-        style: 'yes',
+        style: 'no',
       },
     ]);
 
