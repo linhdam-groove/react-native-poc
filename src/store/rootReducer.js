@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
-const createReducer = (injectedReducers = {}) => {
-  return combineReducers({
-    ...injectedReducers,
-  });
-};
+import { loginReducer, loginSliceName } from 'screens/Login/slices';
+
+const createReducer = combineReducers({
+  [loginSliceName]: loginReducer,
+});
 
 export default createReducer;

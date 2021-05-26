@@ -5,7 +5,8 @@
       "*": ["./src/*"],
       "src/utils": ["./utils/*"],
       "components": ["./components/*"],
-      "store": ["./store"],
+      "store": ["./store/*"],
+      "apis": ["./apis/*"],
       "i18n": ["./i18n/*"]
     }
   }

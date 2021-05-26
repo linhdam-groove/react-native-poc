@@ -55,7 +55,7 @@ function Navigator() {
     [],
   );
 
-  let isLogIn = true;
+  let isLogIn = false;
 
   return (
     <PaperProvider theme={theme}>

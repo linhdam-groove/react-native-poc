@@ -17,11 +17,12 @@ function Login({ navigation }) {
   const { colors } = useTheme();
   const { t } = useTranslation();
 
-  const userInfo = useSelector(state => state.userInfo);
+  const userInfo = useSelector(state => state.login.userInfo);
+
   console.log('userInfo', userInfo);
 
   useEffect(() => {
-    dispatch(loginActions.login());
+    dispatch(loginActions.login({ name: 'test', email: 'test@gmail.com' }));
   }, [dispatch]);
 
   const handleSignIn = () => {

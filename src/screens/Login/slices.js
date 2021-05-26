@@ -7,7 +7,10 @@ const loginSliceName = 'login';
 const initialState = {
   isLoading: false,
   error: null,
-  userInfo: {},
+  userInfo: {
+    name: '123user',
+    email: 'email',
+  },
 };
 
 export const loginSlice = createSlice({
@@ -37,11 +40,11 @@ const { actions: reducerActions, reducer: loginReducer } = loginSlice;
 const loginSliceSaga = createSliceSaga({
   name: loginSliceName,
   caseSagas: {
-    login: function* () {
+    login: function* (action) {
       try {
-        console.log('loginnnnnnnnnnnjnnnnnnn');
+        console.log('loginnnnn', action);
         yield put(
-          reducerActions.loginSuccess({
+          reducerActions.fetchUserInfo({
             name: 'Linh Dam',
             email: 'linhdam@groove',
           }),
@@ -55,7 +58,6 @@ const loginSliceSaga = createSliceSaga({
 });
 
 const { actions: sagaActions, saga: loginSaga } = loginSliceSaga;
-
 const loginActions = { ...reducerActions, ...sagaActions };
 
 export {
