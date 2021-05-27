@@ -10,18 +10,26 @@ import {
   TouchableRipple,
   Switch,
 } from 'react-native-paper';
+import { useSelector, useDispatch } from 'react-redux';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconIon from 'react-native-vector-icons/Ionicons';
 import { useTranslation } from 'react-i18next';
 
+import { loginActions } from 'screens/Login/slices';
 import { AuthContext } from 'components/Basic/Context';
 
 export function DrawerContent(props) {
+  const dispatch = useDispatch();
   const paperTheme = useTheme();
   const { colors } = paperTheme;
   const { t, i18n } = useTranslation();
-  const { signOut, toggleTheme } = useContext(AuthContext);
+  const { toggleTheme } = useContext(AuthContext);
+
+  const handleSignOut = () => {
+    dispatch(loginActions.resetReducer());
+    props.navigation.navigate('Login');
+  };
 
   return (
     <View
@@ -104,9 +112,7 @@ export function DrawerContent(props) {
             <Icon name="exit-to-app" color={color} size={size} />
           )}
           label="SIGN OUT"
-          onPress={() => {
-            signOut();
-          }}
+          onPress={() => handleSignOut()}
         />
       </Drawer.Section>
     </View>

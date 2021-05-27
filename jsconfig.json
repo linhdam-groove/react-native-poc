@@ -4,7 +4,9 @@
     "paths": {
       "*": ["./src/*"],
       "src/utils": ["./utils/*"],
-      "components": ["./components/Layout/*"],
+      "components": ["./components/*"],
+      "store": ["./store/*"],
+      "apis": ["./apis/*"],
       "i18n": ["./i18n/*"]
     }
   }

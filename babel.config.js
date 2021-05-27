@@ -22,6 +22,8 @@ module.exports = {
           themes: './src/themes',
           utils: './src/utils',
           components: './src/components',
+          store: './src/store',
+          apis: './src/apis',
           i18n: './src/i18n',
         },
       },

@@ -30,11 +30,11 @@ function Setting() {
     Alert.alert(t('global.signOut'), t('global.confirmLogout'), [
       {
         text: t('global.yes'),
+        onPress: () => Alert.alert('Logout successfully'),
         style: 'yes',
       },
       {
-        text: t('global.yes'),
-        onPress: () => Alert.alert('Logout successfully'),
+        text: t('global.no'),
         style: 'no',
       },
     ]);
