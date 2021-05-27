@@ -1,32 +1,46 @@
-import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import { useTheme } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import { useSelector, useDispatch } from 'react-redux';
+import { useForm, Controller } from 'react-hook-form';
 
 import { loginActions } from './slices';
 
-import TextInput from 'components/Basic/TextInput';
+import Input from 'components/Basic/Input';
+import Button from 'components/Basic/Button';
 import StyleCommon from 'themes';
 
 // import logo from 'assets/imgs/logo.png';
 
-function Login({ navigation }) {
+function Login() {
   const dispatch = useDispatch();
   const { colors } = useTheme();
   const { t } = useTranslation();
+  const [showPsw, setShowPsw] = useState(true);
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm();
 
-  const userInfo = useSelector(state => state.login.userInfo);
+  let isLoading = useSelector(state => state.login.isLoading);
 
-  console.log('userInfo', userInfo);
+  const handleShowPassword = () => {
+    setShowPsw(!showPsw);
+  };
 
-  useEffect(() => {
-    dispatch(loginActions.login({ name: 'test', email: 'test@gmail.com' }));
-  }, [dispatch]);
-
-  const handleSignIn = () => {
-    navigation.navigate('Home');
+  const onSubmit = data => {
+    // dispatch(
+    //   loginActions.login({ username: 'username2', password: 'password2' }),
+    // );
+    console.log('🚀 ~ file: index.js ~ line 42 ~ onSubmit ~ data', data);
   };
 
   return (
@@ -37,60 +51,80 @@ function Login({ navigation }) {
         styles.wrapper,
         { backgroundColor: colors.background, color: colors.text },
       ]}>
-      <Text style={[styles.title, { color: colors.primary }]}>
-        {t('login.signIn')}
-        {/* <Image source={logo} style={styles.logo} /> */}
-      </Text>
-      <View style={[StyleCommon.wrapperInputIcon, styles.wrapperInput]}>
-        <IconAntDesign
-          color={colors.primary}
-          name="user"
-          size={20}
-          style={StyleCommon.iconInput}
-        />
-        <TextInput style={StyleCommon.inputIcon} />
-      </View>
-      <View style={[StyleCommon.wrapperInputIcon, styles.wrapperInput]}>
-        <IconAntDesign
-          color={colors.primary}
-          name="unlock"
-          size={20}
-          style={StyleCommon.iconInput}
-        />
-        <TextInput style={StyleCommon.inputIcon} />
-        <IconAntDesign
-          color={colors.primary}
-          name="eye"
-          size={20}
-          style={StyleCommon.iconInput}
-        />
-      </View>
-      <Text style={[styles.forgot, { color: colors.primary }]}>
-        {t('login.forgotPsw')}
-      </Text>
-      <TouchableOpacity activeOpacity={0.8} style={[styles.btn]}>
-        <Text
-          style={[
-            StyleCommon.button,
-            StyleCommon.fullWidth,
-            {
-              color: colors.labelBtn,
-              backgroundColor: colors.backgroundBtn,
-            },
-          ]}
-          onPress={() => handleSignIn()}>
-          {t('login.signIn')}
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        activeOpacity={0.8}
-        style={[styles.createAcc, { color: colors.primary }]}>
-        <Text style={{ color: colors.primary }}>{t('login.haveAccount')}</Text>
-        <Text style={[styles.createNew, { color: colors.primary }]}>
-          {' '}
-          {t('login.createAccount')}
-        </Text>
-      </TouchableOpacity>
+      {isLoading ? (
+        <ActivityIndicator size="large" />
+      ) : (
+        <>
+          <Text style={[styles.title, { color: colors.primary }]}>
+            {t('login.signIn')}
+          </Text>
+          <Controller
+            defaultValue=""
+            control={control}
+            // rules={{
+            //   required: { value: true, message: 'Username is required' },
+            // }}
+            render={({ onChange, value }) => (
+              <Input
+                error={errors.username}
+                errorText={errors?.username?.message}
+                colors={colors}
+                onChangeText={text => onChange(text)}
+                value={value}
+                iconLeft="user"
+              />
+            )}
+            name="username"
+          />
+          <Controller
+            defaultValue=""
+            control={control}
+            // rules={{
+            //   required: { value: true, message: 'Password is required' },
+            // }}
+            render={({ onChange, value }) => (
+              <Input
+                error={errors.password}
+                errorText={errors?.password?.message}
+                colors={colors}
+                onChangeText={text => onChange(text)}
+                value={value}
+                iconRight
+                optionsIcon={showPsw}
+                iconLeft="unlock"
+                iconBegin="eye"
+                iconChanged="eyeo"
+                handleIconRight={handleShowPassword}
+                secureTextEntry={showPsw}
+              />
+            )}
+            name="password"
+          />
+
+          <TouchableOpacity style={[styles.forgot]}>
+            <Text style={{ fontWeight: 'bold', color: colors.primary }}>
+              {t('login.forgotPsw')}
+            </Text>
+          </TouchableOpacity>
+
+          <Button
+            colors={colors}
+            label={t('login.signIn')}
+            onPress={handleSubmit(onSubmit)}
+          />
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={[styles.createAcc, { color: colors.primary }]}>
+            <Text style={{ color: colors.primary }}>
+              {t('login.haveAccount')}
+            </Text>
+            <Text style={[styles.createNew, { color: colors.primary }]}>
+              {' '}
+              {t('login.createAccount')}
+            </Text>
+          </TouchableOpacity>
+        </>
+      )}
     </View>
   );
 }
@@ -110,10 +144,8 @@ const styles = StyleSheet.create({
   },
   forgot: {
     width: '100%',
-    textAlign: 'right',
-    marginTop: 10,
     marginBottom: 30,
-    fontWeight: 'bold',
+    alignItems: 'flex-end',
   },
   btn: {
     alignItems: 'center',

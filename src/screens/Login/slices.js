@@ -1,16 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createSliceSaga, SagaType } from 'redux-toolkit-saga';
-import { put } from 'redux-saga/effects';
+import { put, call } from 'redux-saga/effects';
+
+import * as loginApis from './apis';
 
 const loginSliceName = 'login';
 
 const initialState = {
   isLoading: false,
   error: null,
-  userInfo: {
-    name: '123user',
-    email: 'email',
-  },
+  userInfo: null,
 };
 
 export const loginSlice = createSlice({
@@ -20,11 +19,19 @@ export const loginSlice = createSlice({
     fetchUserInfo: (state, action) => ({
       ...state,
       isLoading: true,
+    }),
+    fetchUserInfoProcessing: (state, action) => ({
+      ...state,
+      isLoading: true,
+    }),
+    fetchUserInfoSuccess: (state, action) => ({
+      ...state,
       userInfo: action.payload,
     }),
     loginSuccess: (state, action) => ({
       ...state,
       isLoading: false,
+      userInfo: action.payload,
     }),
     loginFailure: (state, action) => ({
       ...state,
@@ -42,13 +49,28 @@ const loginSliceSaga = createSliceSaga({
   caseSagas: {
     login: function* (action) {
       try {
-        console.log('loginnnnn', action);
+        yield put(reducerActions.fetchUserInfoProcessing());
         yield put(
           reducerActions.fetchUserInfo({
             name: 'Linh Dam',
             email: 'linhdam@groove',
           }),
         );
+        const { payload } = action;
+
+        const { data } = yield call(loginApis.fetchUserInfo);
+
+        let userInfo;
+
+        if (data) {
+          userInfo = data.filter(
+            item =>
+              item.username === payload.username &&
+              item.password === payload.password,
+          );
+        }
+
+        yield put(reducerActions.loginSuccess(userInfo));
       } catch (error) {
         yield put(reducerActions.loginFailure(error));
       }

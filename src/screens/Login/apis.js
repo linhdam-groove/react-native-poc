@@ -6,12 +6,13 @@ export const login = params =>
     .post(LOGIN_URL, params)
     .then(res => res)
     .catch(function (err) {
+      console.log('err', err);
       throw err;
     });
 
 export const fetchUserInfo = params =>
   apiClient
-    .post(USER_INFO_URL, params)
+    .get(USER_INFO_URL, params)
     .then(res => res)
     .catch(function (err) {
       throw err;

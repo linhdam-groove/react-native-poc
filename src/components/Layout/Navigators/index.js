@@ -10,6 +10,7 @@ import {
   DefaultTheme as PaperDefaultTheme,
   DarkTheme as PaperDarkTheme,
 } from 'react-native-paper';
+import { useSelector } from 'react-redux';
 
 import Login from 'screens/Login';
 import Register from 'screens/Register';
@@ -23,6 +24,8 @@ const Drawer = createDrawerNavigator();
 
 function Navigator() {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
+
+  const userInfo = useSelector(state => state.login.userInfo);
 
   const customDefaultTheme = {
     ...NavigationDefaultTheme,
@@ -47,7 +50,6 @@ function Navigator() {
   const theme = isDarkTheme ? customDarkTheme : customDefaultTheme;
   const authContext = useMemo(
     () => ({
-      signOut: () => {},
       toggleTheme: () => {
         setIsDarkTheme(isDarkTheme => !isDarkTheme);
       },
@@ -55,13 +57,11 @@ function Navigator() {
     [],
   );
 
-  let isLogIn = false;
-
   return (
     <PaperProvider theme={theme}>
       <AuthContext.Provider value={authContext}>
         <NavigationContainer theme={theme}>
-          {isLogIn ? (
+          {userInfo ? (
             <Drawer.Navigator
               drawerContent={props => <DrawerContent {...props} />}>
               <Drawer.Screen name="Home" component={BottomTabs} />
