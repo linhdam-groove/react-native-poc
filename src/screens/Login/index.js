@@ -6,20 +6,20 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from 'react-native';
-import { useTheme } from 'react-native-paper';
+import { configureFonts, useTheme } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
+// import auth from '@react-native-firebase/auth';
 
 import { loginActions } from './slices';
 
 import Input from 'components/Basic/Input';
 import Button from 'components/Basic/Button';
 import StyleCommon from 'themes';
+import { authLogin } from 'auth';
 
-// import logo from 'assets/imgs/logo.png';
-
-function Login() {
+function Login({ navigation }) {
   const dispatch = useDispatch();
   const { colors } = useTheme();
   const { t } = useTranslation();
@@ -30,7 +30,7 @@ function Login() {
     formState: { errors },
   } = useForm();
 
-  let isLoading = useSelector(state => state.login.isLoading);
+  const isLoading = useSelector(state => state.login.isLoading);
 
   const handleShowPassword = () => {
     setShowPsw(!showPsw);
@@ -38,6 +38,19 @@ function Login() {
 
   const onSubmit = data => {
     dispatch(loginActions.login(data));
+  };
+
+  const onSuccess = res => {
+    console.log('🚀 ~ file: index.js ~ line 44 ~ onSuccess ~ res', res);
+  };
+
+  const onFail = error => {
+    console.log('error', error);
+  };
+
+  const onLoginFirebase = data => {
+    // authLogin(onSuccess, onFail);
+    dispatch(loginActions.authLogin(data));
   };
 
   return (
@@ -108,6 +121,11 @@ function Login() {
             colors={colors}
             label={t('login.signIn')}
             onPress={handleSubmit(onSubmit)}
+          />
+          <Button
+            colors={colors}
+            label="Login with Firebase"
+            onPress={handleSubmit(onLoginFirebase)}
           />
           <TouchableOpacity
             activeOpacity={0.8}

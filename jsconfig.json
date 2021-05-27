@@ -7,6 +7,7 @@
       "components": ["./components/*"],
       "store": ["./store/*"],
       "apis": ["./apis/*"],
+      "auth": ["./auth/*"],
       "i18n": ["./i18n/*"]
     }
   }

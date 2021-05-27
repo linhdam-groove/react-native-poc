@@ -17,7 +17,7 @@ function Register() {
   const { colors } = useTheme();
 
   const handleRegisterAccount = () => {
-    console.log(123123);
+    console.log('register');
   };
 
   return (
