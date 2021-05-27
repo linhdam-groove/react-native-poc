@@ -11,6 +11,7 @@ import {
   DarkTheme as PaperDarkTheme,
 } from 'react-native-paper';
 import { useSelector } from 'react-redux';
+import isEmpty from 'lodash/isEmpty';
 
 import Login from 'screens/Login';
 import Register from 'screens/Register';
@@ -61,7 +62,7 @@ function Navigator() {
     <PaperProvider theme={theme}>
       <AuthContext.Provider value={authContext}>
         <NavigationContainer theme={theme}>
-          {userInfo ? (
+          {!isEmpty(userInfo) ? (
             <Drawer.Navigator
               drawerContent={props => <DrawerContent {...props} />}>
               <Drawer.Screen name="Home" component={BottomTabs} />

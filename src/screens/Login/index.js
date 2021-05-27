@@ -37,10 +37,7 @@ function Login() {
   };
 
   const onSubmit = data => {
-    // dispatch(
-    //   loginActions.login({ username: 'username2', password: 'password2' }),
-    // );
-    console.log('🚀 ~ file: index.js ~ line 42 ~ onSubmit ~ data', data);
+    dispatch(loginActions.login(data));
   };
 
   return (
@@ -61,10 +58,10 @@ function Login() {
           <Controller
             defaultValue=""
             control={control}
-            // rules={{
-            //   required: { value: true, message: 'Username is required' },
-            // }}
-            render={({ onChange, value }) => (
+            rules={{
+              required: { value: true, message: 'Username is required' },
+            }}
+            render={({ field: { onChange, value } }) => (
               <Input
                 error={errors.username}
                 errorText={errors?.username?.message}
@@ -79,10 +76,10 @@ function Login() {
           <Controller
             defaultValue=""
             control={control}
-            // rules={{
-            //   required: { value: true, message: 'Password is required' },
-            // }}
-            render={({ onChange, value }) => (
+            rules={{
+              required: { value: true, message: 'Password is required' },
+            }}
+            render={({ field: { onChange, value } }) => (
               <Input
                 error={errors.password}
                 errorText={errors?.password?.message}

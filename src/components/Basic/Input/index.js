@@ -13,7 +13,6 @@ import StyleCommon from 'themes';
 const Input = ({
   colors,
   value,
-  onChangeText,
   style,
   iconRight,
   optionsIcon,
@@ -25,28 +24,28 @@ const Input = ({
   ...props
 }) => {
   return (
-    // <View style={styles.wrapper}>
-    <View
-      style={[
-        StyleCommon.wrapperInputIcon,
-        props.error && styles.errorInput,
-        { marginBottom: props.error ? 10 : 20 },
-      ]}>
-      {iconLeft && (
-        <IconAntDesign
-          color={colors.primary}
-          name={iconLeft}
-          size={20}
-          style={StyleCommon.iconInput}
+    <View style={styles.wrapper}>
+      <View
+        style={[
+          StyleCommon.wrapperInputIcon,
+          props.error && styles.errorInput,
+          { marginBottom: props.error ? 10 : 20 },
+        ]}>
+        {iconLeft && (
+          <IconAntDesign
+            color={colors.primary}
+            name={iconLeft}
+            size={20}
+            style={StyleCommon.iconInput}
+          />
+        )}
+
+        <TextInput
+          style={[StyleCommon.inputIcon, styles.input, props.style]}
+          {...props}
         />
-      )}
 
-      <TextInput
-        style={[StyleCommon.inputIcon, styles.input, props.style]}
-        {...props}
-      />
-
-      {/* {iconRight && (
+        {iconRight && (
           <TouchableOpacity onPress={handleIconRight}>
             <IconAntDesign
               color={colors.primary}
@@ -57,7 +56,8 @@ const Input = ({
           </TouchableOpacity>
         )}
       </View>
-      {errorText && <Text style={styles.errorText}>{errorText}</Text>} */}
+
+      {errorText && <Text style={styles.errorText}>{errorText}</Text>}
     </View>
   );
 };

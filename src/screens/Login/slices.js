@@ -50,14 +50,8 @@ const loginSliceSaga = createSliceSaga({
     login: function* (action) {
       try {
         yield put(reducerActions.fetchUserInfoProcessing());
-        yield put(
-          reducerActions.fetchUserInfo({
-            name: 'Linh Dam',
-            email: 'linhdam@groove',
-          }),
-        );
-        const { payload } = action;
 
+        const { payload } = action;
         const { data } = yield call(loginApis.fetchUserInfo);
 
         let userInfo;
@@ -70,6 +64,7 @@ const loginSliceSaga = createSliceSaga({
           );
         }
 
+        console.log('🚀 ~ file: slices.js ~ line 75 ~ userInfo', userInfo);
         yield put(reducerActions.loginSuccess(userInfo));
       } catch (error) {
         yield put(reducerActions.loginFailure(error));
