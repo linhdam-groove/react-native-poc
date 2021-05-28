@@ -18,6 +18,7 @@ import { useTranslation } from 'react-i18next';
 
 import { loginActions } from 'screens/Login/slices';
 import { AuthContext } from 'components/Basic/Context';
+import { authLogout } from 'auth';
 
 export function DrawerContent(props) {
   const dispatch = useDispatch();
@@ -25,10 +26,13 @@ export function DrawerContent(props) {
   const { colors } = paperTheme;
   const { t, i18n } = useTranslation();
   const { toggleTheme } = useContext(AuthContext);
+  const { navigation } = props;
+  const isFirebase = useSelector(state => state.login.firebase);
 
   const handleSignOut = () => {
     dispatch(loginActions.resetReducer());
-    props.navigation.navigate('Login');
+    isFirebase && authLogout(navigation);
+    navigation.navigate('Login');
   };
 
   return (

@@ -6,31 +6,32 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from 'react-native';
-import { useTheme } from 'react-native-paper';
+import { useTheme, Switch } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 
 import { loginActions } from './slices';
 
+import { authLogin } from 'auth';
 import Input from 'components/Basic/Input';
+import Password from 'components/Basic/Password';
 import Button from 'components/Basic/Button';
 import StyleCommon from 'themes';
 
-// import logo from 'assets/imgs/logo.png';
-
-function Login() {
+function Login({ navigation }) {
   const dispatch = useDispatch();
   const { colors } = useTheme();
   const { t } = useTranslation();
   const [showPsw, setShowPsw] = useState(true);
+  const [isLoginFirebase, setIsLoginFirebase] = useState(false);
   const {
     handleSubmit,
     control,
     formState: { errors },
   } = useForm();
 
-  let isLoading = useSelector(state => state.login.isLoading);
+  const isLoading = useSelector(state => state.login.isLoading);
 
   const handleShowPassword = () => {
     setShowPsw(!showPsw);
@@ -38,6 +39,18 @@ function Login() {
 
   const onSubmit = data => {
     dispatch(loginActions.login(data));
+  };
+
+  const onSuccess = data => {
+    dispatch(loginActions.loginSuccess({ data, firebase: true }));
+  };
+
+  const onFail = err => {
+    dispatch(loginActions.loginFailure(err));
+  };
+
+  const onLoginFirebase = data => {
+    authLogin(data, onSuccess, onFail);
   };
 
   return (
@@ -55,6 +68,7 @@ function Login() {
           <Text style={[styles.title, { color: colors.primary }]}>
             {t('login.signIn')}
           </Text>
+
           <Controller
             defaultValue=""
             control={control}
@@ -73,6 +87,7 @@ function Login() {
             )}
             name="username"
           />
+
           <Controller
             defaultValue=""
             control={control}
@@ -80,7 +95,7 @@ function Login() {
               required: { value: true, message: 'Password is required' },
             }}
             render={({ field: { onChange, value } }) => (
-              <Input
+              <Password
                 error={errors.password}
                 errorText={errors?.password?.message}
                 colors={colors}
@@ -104,14 +119,40 @@ function Login() {
             </Text>
           </TouchableOpacity>
 
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => setIsLoginFirebase(!isLoginFirebase)}>
+            <View style={styles.firebase}>
+              <Text
+                style={[
+                  styles.firebaseText,
+                  {
+                    color: colors.primary,
+                    fontWeight: isLoginFirebase ? 'bold' : 'normal',
+                  },
+                ]}>
+                {t('login.firebase')}
+              </Text>
+              <View pointerEvents="none">
+                <Switch value={isLoginFirebase} />
+              </View>
+            </View>
+          </TouchableOpacity>
+
           <Button
             colors={colors}
             label={t('login.signIn')}
-            onPress={handleSubmit(onSubmit)}
+            onPress={
+              isLoginFirebase
+                ? handleSubmit(onLoginFirebase)
+                : handleSubmit(onSubmit)
+            }
           />
+
           <TouchableOpacity
             activeOpacity={0.8}
-            style={[styles.createAcc, { color: colors.primary }]}>
+            style={[styles.createAcc, { color: colors.primary }]}
+            onPress={() => navigation.navigate('Register')}>
             <Text style={{ color: colors.primary }}>
               {t('login.haveAccount')}
             </Text>
@@ -154,6 +195,14 @@ const styles = StyleSheet.create({
   },
   createNew: {
     fontWeight: 'bold',
+  },
+  firebase: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginBottom: 20,
+  },
+  firebaseText: {
+    marginRight: 10,
   },
 });
 

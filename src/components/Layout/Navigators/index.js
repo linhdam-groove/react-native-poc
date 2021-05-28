@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import {
   NavigationContainer,
@@ -25,7 +25,6 @@ const Drawer = createDrawerNavigator();
 
 function Navigator() {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
-
   const userInfo = useSelector(state => state.login.userInfo);
 
   const customDefaultTheme = {

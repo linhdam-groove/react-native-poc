@@ -4,15 +4,20 @@ import { TouchableRipple, useTheme, Switch } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useSelector, useDispatch } from 'react-redux';
 
 import StyleCommon from 'themes';
 import { AuthContext } from 'components/Basic/Context';
+import { loginActions } from 'screens/Login/slices';
+import { authLogout } from 'auth';
 
-function Setting() {
+function Setting({ navigation }) {
+  const dispatch = useDispatch();
   const paperTheme = useTheme();
   const { colors } = paperTheme;
   const { toggleTheme } = useContext(AuthContext);
   const { t } = useTranslation();
+  const isFirebase = useSelector(state => state.login.firebase);
 
   const [language, setLanguage] = useState('EN');
 
@@ -26,16 +31,23 @@ function Setting() {
     }
   };
 
+  const onPressSignOut = text => {
+    dispatch(loginActions.resetReducer());
+    isFirebase && authLogout(navigation);
+    navigation.navigate('Login');
+    Alert.alert(text);
+  };
+
   const handleSignOut = () =>
     Alert.alert(t('global.signOut'), t('global.confirmLogout'), [
       {
-        text: t('global.yes'),
-        onPress: () => Alert.alert('Logout successfully'),
-        style: 'yes',
-      },
-      {
         text: t('global.no'),
         style: 'no',
+      },
+      {
+        text: t('global.yes'),
+        onPress: () => onPressSignOut(t('global.logoutSuccess')),
+        style: 'yes',
       },
     ]);
 
@@ -65,11 +77,13 @@ function Setting() {
           </View>
         </TouchableRipple>
       </View>
+
       <View>
         <View style={styles.preference}>
           <Text style={[styles.theme, { color: colors.primary }]}>
             {t('global.language')}
           </Text>
+
           <TouchableOpacity onPress={() => handleChangeLanguage()}>
             <Text
               style={[

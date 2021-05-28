@@ -12,8 +12,9 @@ target 'POCReactNative' do
     :hermes_enabled => false
   )
 
-
   pod 'react-native-webview', :path => '../node_modules/react-native-webview'
+  pod 'Firebase/Analytics'
+  pod 'RNFBAuth', :path => '../node_modules/@react-native-firebase/auth'
 
   target 'POCReactNativeTests' do
     inherit! :complete

@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createSliceSaga, SagaType } from 'redux-toolkit-saga';
 import { put, call } from 'redux-saga/effects';
+import auth from '@react-native-firebase/auth';
 
 import * as loginApis from './apis';
 
@@ -10,6 +11,7 @@ const initialState = {
   isLoading: false,
   error: null,
   userInfo: null,
+  firebase: false,
 };
 
 export const loginSlice = createSlice({
@@ -28,11 +30,16 @@ export const loginSlice = createSlice({
       ...state,
       userInfo: action.payload,
     }),
-    loginSuccess: (state, action) => ({
-      ...state,
-      isLoading: false,
-      userInfo: action.payload,
-    }),
+    loginSuccess: (state, action) => {
+      const { firebase, ...data } = action.payload;
+
+      return {
+        ...state,
+        isLoading: false,
+        userInfo: data,
+        firebase,
+      };
+    },
     loginFailure: (state, action) => ({
       ...state,
       isLoading: false,
@@ -54,18 +61,21 @@ const loginSliceSaga = createSliceSaga({
         const { payload } = action;
         const { data } = yield call(loginApis.fetchUserInfo);
 
-        let userInfo;
+        let userInfo = {};
 
         if (data) {
-          userInfo = data.filter(
+          userInfo = data.find(
             item =>
               item.username === payload.username &&
               item.password === payload.password,
           );
         }
 
-        console.log('🚀 ~ file: slices.js ~ line 75 ~ userInfo', userInfo);
-        yield put(reducerActions.loginSuccess(userInfo));
+        const { password, ...dataMapped } = userInfo;
+
+        yield put(
+          reducerActions.loginSuccess({ firebase: false, ...dataMapped }),
+        );
       } catch (error) {
         yield put(reducerActions.loginFailure(error));
       }

@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "216556716668",
+    "project_id": "pocreactnative-linhdam",
+    "storage_bucket": "pocreactnative-linhdam.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:216556716668:android:bcc0ac8cf0b269254c3ff9",
+        "android_client_info": {
+          "package_name": "com.pocreactnative"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "216556716668-162bnlgvchr9cq4kmi87pj982b3pcjep.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCh8vHTm2zeH1wpj4nwNx0QhO8JhQivYg0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "216556716668-162bnlgvchr9cq4kmi87pj982b3pcjep.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "216556716668-p62tr2982nosm045vabu9fcct47eiqof.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.POCReactNative"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

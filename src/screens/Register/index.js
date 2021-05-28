@@ -12,12 +12,12 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 
 import StyleCommon from 'themes';
 
-function Register() {
+function Register({ navigation }) {
   const { t } = useTranslation();
   const { colors } = useTheme();
 
   const handleRegisterAccount = () => {
-    console.log(123123);
+    console.log('register');
   };
 
   return (
@@ -92,9 +92,13 @@ function Register() {
         </Text>
       </TouchableOpacity>
 
-      <Text style={[styles.haveAccount, { color: colors.primary }]}>
-        {t('register.alreadyAccount')}
-      </Text>
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={() => navigation.navigate('Login')}>
+        <Text style={[styles.haveAccount, { color: colors.primary }]}>
+          {t('register.alreadyAccount')}
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }
