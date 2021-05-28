@@ -11,6 +11,7 @@ const initialState = {
   isLoading: false,
   error: null,
   userInfo: null,
+  firebase: false,
 };
 
 export const loginSlice = createSlice({
@@ -29,11 +30,16 @@ export const loginSlice = createSlice({
       ...state,
       userInfo: action.payload,
     }),
-    loginSuccess: (state, action) => ({
-      ...state,
-      isLoading: false,
-      userInfo: action.payload,
-    }),
+    loginSuccess: (state, action) => {
+      const { firebase, ...data } = action.payload;
+
+      return {
+        ...state,
+        isLoading: false,
+        userInfo: data,
+        firebase,
+      };
+    },
     loginFailure: (state, action) => ({
       ...state,
       isLoading: false,
@@ -48,27 +54,6 @@ const { actions: reducerActions, reducer: loginReducer } = loginSlice;
 const loginSliceSaga = createSliceSaga({
   name: loginSliceName,
   caseSagas: {
-    authLogin: function* (action) {
-      yield put(reducerActions.fetchUserInfoProcessing());
-
-      const { username, password } = action.payload;
-      auth()
-        .signInWithEmailAndPassword(username, password)
-        .then(res => {
-          console.log('🚀 ~ file: slices.js ~ line 58 ~ res', res);
-        })
-        .catch(error => {
-          if (error.code === 'auth/email-already-in-use') {
-            console.log('That email address is already in use!');
-          }
-
-          if (error.code === 'auth/invalid-email') {
-            console.log('That email address is invalid!');
-          }
-
-          console.error(error);
-        });
-    },
     login: function* (action) {
       try {
         yield put(reducerActions.fetchUserInfoProcessing());
@@ -76,17 +61,21 @@ const loginSliceSaga = createSliceSaga({
         const { payload } = action;
         const { data } = yield call(loginApis.fetchUserInfo);
 
-        let userInfo;
+        let userInfo = {};
 
         if (data) {
-          userInfo = data.filter(
+          userInfo = data.find(
             item =>
               item.username === payload.username &&
               item.password === payload.password,
           );
         }
 
-        yield put(reducerActions.loginSuccess(userInfo));
+        const { password, ...dataMapped } = userInfo;
+
+        yield put(
+          reducerActions.loginSuccess({ firebase: false, ...dataMapped }),
+        );
       } catch (error) {
         yield put(reducerActions.loginFailure(error));
       }

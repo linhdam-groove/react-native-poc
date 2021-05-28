@@ -1,4 +1,5 @@
 import apiClient from 'apis/apiClient';
+
 import { LOGIN_URL, USER_INFO_URL } from 'constants/apiUrl';
 
 export const login = params =>
@@ -10,9 +11,9 @@ export const login = params =>
       throw err;
     });
 
-export const fetchUserInfo = params =>
+export const fetchUserInfo = () =>
   apiClient
-    .get(USER_INFO_URL, params)
+    .get(USER_INFO_URL)
     .then(res => res)
     .catch(function (err) {
       throw err;

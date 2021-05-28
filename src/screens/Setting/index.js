@@ -65,11 +65,13 @@ function Setting() {
           </View>
         </TouchableRipple>
       </View>
+
       <View>
         <View style={styles.preference}>
           <Text style={[styles.theme, { color: colors.primary }]}>
             {t('global.language')}
           </Text>
+
           <TouchableOpacity onPress={() => handleChangeLanguage()}>
             <Text
               style={[

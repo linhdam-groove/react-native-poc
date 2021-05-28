@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import {
   NavigationContainer,
@@ -12,7 +12,6 @@ import {
 } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
-import auth from '@react-native-firebase/auth';
 
 import Login from 'screens/Login';
 import Register from 'screens/Register';
@@ -26,24 +25,6 @@ const Drawer = createDrawerNavigator();
 
 function Navigator() {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
-
-  // Set an initializing state whilst Firebase connects
-  // const [initializing, setInitializing] = useState(true);
-  // const [user, setUser] = useState();
-
-  // // Handle user state changes
-  // const onAuthStateChanged = user => {
-  //   setUser(user);
-  //   if (initializing) setInitializing(false);
-  // };
-
-  // useEffect(() => {
-  //   const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-  //   return subscriber; // unsubscribe on unmount
-  // }, []);
-
-  // if (initializing) return null;
-
   const userInfo = useSelector(state => state.login.userInfo);
 
   const customDefaultTheme = {
