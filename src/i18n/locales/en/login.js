@@ -5,6 +5,15 @@ const login = {
   haveAccount: "Don't have account?",
   createAccount: 'Create new account',
   firebase: 'Login with Firebase',
+  required: {
+    username: 'Username is required',
+    password: 'Password is required',
+  },
+  error: {
+    userNotFound: 'User not found!',
+    wrongPassword:
+      'The password is invalid or the user does not have a password!',
+  },
 };
 
 export { login };

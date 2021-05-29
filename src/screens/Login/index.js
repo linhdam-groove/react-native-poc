@@ -10,9 +10,11 @@ import { useTheme, Switch } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
+import Toast from 'react-native-toast-message';
 
 import { loginActions } from './slices';
 
+import { EMAIL_REGEX, SCREENS, ERROR_CODE } from 'constants/common';
 import { authLogin } from 'auth';
 import Input from 'components/Basic/Input';
 import Password from 'components/Basic/Password';
@@ -42,8 +44,22 @@ function Login({ navigation }) {
     dispatch(loginActions.loginSuccess({ data, firebase: true }));
   };
 
-  const onFail = err => {
-    dispatch(loginActions.loginFailure(err));
+  const onFail = error => {
+    if (error.code === ERROR_CODE.USER_NOT_FOUND) {
+      Toast.show({
+        type: 'error',
+        text1: t('login.signIn'),
+        text2: t('login.error.userNotFound'),
+      });
+    }
+
+    if (error.code === ERROR_CODE.WRONG_PSW) {
+      Toast.show({
+        type: 'error',
+        text1: t('login.signIn'),
+        text2: t('login.error.wrongPassword'),
+      });
+    }
   };
 
   const onLoginFirebase = data => {
@@ -66,30 +82,59 @@ function Login({ navigation }) {
             {t('login.signIn')}
           </Text>
 
-          <Controller
-            defaultValue=""
-            control={control}
-            rules={{
-              required: { value: true, message: 'Username is required' },
-            }}
-            render={({ field: { onChange, value } }) => (
-              <Input
-                error={errors.username}
-                errorText={errors?.username?.message}
-                colors={colors}
-                onChangeText={text => onChange(text)}
-                value={value}
-                iconLeft="user"
-              />
-            )}
-            name="username"
-          />
+          {isLoginFirebase ? (
+            <Controller
+              name="username"
+              control={control}
+              rules={{
+                required: {
+                  value: true,
+                  message: t('login.required.username'),
+                },
+                pattern: {
+                  value: EMAIL_REGEX,
+                  message: t('register.invalid.email'),
+                },
+              }}
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  error={errors.username}
+                  errorText={errors?.username?.message}
+                  colors={colors}
+                  onChangeText={text => onChange(text)}
+                  value={value}
+                  iconLeft="user"
+                />
+              )}
+            />
+          ) : (
+            <Controller
+              name="username"
+              control={control}
+              rules={{
+                required: {
+                  value: true,
+                  message: t('login.required.username'),
+                },
+              }}
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  error={errors.username}
+                  errorText={errors?.username?.message}
+                  colors={colors}
+                  onChangeText={text => onChange(text)}
+                  value={value}
+                  iconLeft="user"
+                />
+              )}
+            />
+          )}
 
           <Controller
             defaultValue=""
             control={control}
             rules={{
-              required: { value: true, message: 'Password is required' },
+              required: { value: true, message: t('login.required.password') },
             }}
             render={({ field: { onChange, value } }) => (
               <Password
@@ -149,7 +194,7 @@ function Login({ navigation }) {
           <TouchableOpacity
             activeOpacity={0.8}
             style={[styles.createAcc, { color: colors.primary }]}
-            onPress={() => navigation.navigate('Register')}>
+            onPress={() => navigation.navigate(SCREENS.REGISTER)}>
             <Text style={{ color: colors.primary }}>
               {t('login.haveAccount')}
             </Text>

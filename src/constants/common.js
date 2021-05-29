@@ -8,3 +8,9 @@ export const SCREENS = {
   SETTING: 'Setting',
   SPLASH: 'Splash',
 };
+
+export const ERROR_CODE = {
+  USER_NOT_FOUND: 'auth/user-not-found',
+  WRONG_PSW: 'auth/wrong-password',
+  EMAIL_ALREADY_USE: 'auth/email-already-in-use',
+};
