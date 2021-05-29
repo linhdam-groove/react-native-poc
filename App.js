@@ -8,6 +8,7 @@
 
 import React from 'react';
 import { Provider } from 'react-redux';
+import Toast from 'react-native-toast-message';
 
 import Navigator from 'components/Layout/Navigators';
 import store from 'store';
@@ -18,6 +19,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <Navigator />
+      <Toast ref={ref => Toast.setRef(ref)} />
     </Provider>
   );
 };
