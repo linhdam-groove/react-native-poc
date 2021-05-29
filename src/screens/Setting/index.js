@@ -4,6 +4,7 @@ import { TouchableRipple, useTheme, Switch } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import IconFeather from 'react-native-vector-icons/Feather';
 import { useSelector, useDispatch } from 'react-redux';
 
 import StyleCommon from 'themes';
@@ -68,10 +69,13 @@ function Setting({ navigation }) {
             toggleTheme();
           }}>
           <View style={styles.preference}>
-            <Text style={[styles.theme, { color: colors.primary }]}>
-              {t('global.darkTheme')}
-            </Text>
-            <View pointerEvents="none">
+            <View style={styles.textHasIcon}>
+              <IconFeather name="moon" color={colors.primary} size={25} />
+              <Text style={[styles.text, { color: colors.primary }]}>
+                {t('global.darkTheme')}
+              </Text>
+            </View>
+            <View pointerEvents="none" style={{}}>
               <Switch value={paperTheme.dark} />
             </View>
           </View>
@@ -80,9 +84,12 @@ function Setting({ navigation }) {
 
       <View>
         <View style={styles.preference}>
-          <Text style={[styles.theme, { color: colors.primary }]}>
-            {t('global.language')}
-          </Text>
+          <View style={styles.textHasIcon}>
+            <Icon name="earth" color={colors.primary} size={25} />
+            <Text style={[styles.text, { color: colors.primary }]}>
+              {t('global.language')}
+            </Text>
+          </View>
 
           <TouchableOpacity onPress={() => handleChangeLanguage()}>
             <Text
@@ -121,9 +128,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     lineHeight: 30,
   },
+  textHasIcon: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  text: { marginLeft: 10 },
   preference: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     paddingHorizontal: 16,
     paddingVertical: 12,
   },

@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { useTheme, Switch } from 'react-native-paper';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { useTheme } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import { useForm, Controller } from 'react-hook-form';
+import Toast from 'react-native-toast-message';
 
 import StyleCommon from 'themes';
 import Button from 'components/Basic/Button';
 import Input from 'components/Basic/Input';
 import Password from 'components/Basic/Password';
 import Link from 'components/Basic/Link';
-import { EMAIL_REGEX, SCREENS } from 'constants/common';
-import { authSignUp } from 'auth';
+import { EMAIL_REGEX, SCREENS, ERROR_CODE } from 'constants/common';
+import { authSignUp, authLogout } from 'auth';
 
 function Register({ navigation }) {
   const { t } = useTranslation();
@@ -18,7 +19,6 @@ function Register({ navigation }) {
 
   const [showPsw, setShowPsw] = useState(true);
   const [confirmShowPsw, setConfirmShowPsw] = useState(true);
-  const [isSignUpFirebase, setIsSignUpFirebase] = useState(false);
   const [psw, setPsw] = useState(false);
 
   const {
@@ -27,9 +27,25 @@ function Register({ navigation }) {
     formState: { errors },
   } = useForm();
 
-  const onSuccess = () => {};
+  const onSuccess = () => {
+    authLogout(navigation);
+    navigation.navigate(SCREENS.LOGIN);
 
-  const onFail = () => {};
+    Toast.show({
+      text1: t('register.title'),
+      text2: t('register.signUpSuccess'),
+    });
+  };
+
+  const onFail = error => {
+    if (error.code === ERROR_CODE.EMAIL_ALREADY_USE) {
+      Toast.show({
+        type: 'error',
+        text1: t('register.title'),
+        text2: t('register.error.alreadyAccount'),
+      });
+    }
+  };
 
   const onSignup = data => {
     authSignUp(data, onSuccess, onFail);
@@ -159,26 +175,6 @@ function Register({ navigation }) {
           />
         )}
       />
-
-      <TouchableOpacity
-        activeOpacity={0.8}
-        onPress={() => setIsSignUpFirebase(!isSignUpFirebase)}>
-        <View style={styles.firebase}>
-          <Text
-            style={[
-              styles.firebaseText,
-              {
-                color: colors.primary,
-                fontWeight: isSignUpFirebase ? 'bold' : 'normal',
-              },
-            ]}>
-            {t('register.signUpFirebase')}
-          </Text>
-          <View pointerEvents="none">
-            <Switch value={isSignUpFirebase} />
-          </View>
-        </View>
-      </TouchableOpacity>
 
       <Button
         styleBtn={styles.btn}

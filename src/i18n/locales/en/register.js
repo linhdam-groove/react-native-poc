@@ -8,6 +8,7 @@ const register = {
   confirm: 'Confirm Password',
   alreadyAccount: 'Already have a account?',
   signUpFirebase: 'Sign up with Firebase',
+  signUpSuccess: 'Create Account Successfully 👋',
   placeholders: {
     username: 'Please, Enter Username',
     email: 'Please, Enter Email',
@@ -18,6 +19,9 @@ const register = {
     email: 'Invalid Email Address',
     minLengthPsw: 'Password must have at least 8 characters',
     pswNotMatch: 'The passwords do not match',
+  },
+  error: {
+    alreadyAccount: 'That email address is already in use!',
   },
 };
 
