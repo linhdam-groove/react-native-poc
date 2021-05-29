@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createSliceSaga, SagaType } from 'redux-toolkit-saga';
 import { put, call } from 'redux-saga/effects';
-import auth from '@react-native-firebase/auth';
 
 import * as loginApis from './apis';
 

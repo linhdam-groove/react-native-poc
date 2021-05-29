@@ -14,13 +14,10 @@ const Input = ({
   colors,
   value,
   style,
-  iconRight,
-  optionsIcon,
   iconBegin,
   iconChanged,
   iconLeft,
   errorText,
-  handleIconRight,
   ...props
 }) => {
   return (
@@ -44,17 +41,6 @@ const Input = ({
           style={[StyleCommon.inputIcon, styles.input, props.style]}
           {...props}
         />
-
-        {iconRight && (
-          <TouchableOpacity onPress={handleIconRight}>
-            <IconAntDesign
-              color={colors.primary}
-              name={optionsIcon ? 'eye' : 'eyeo'}
-              size={20}
-              style={StyleCommon.iconInput}
-            />
-          </TouchableOpacity>
-        )}
       </View>
 
       {errorText && <Text style={styles.errorText}>{errorText}</Text>}
