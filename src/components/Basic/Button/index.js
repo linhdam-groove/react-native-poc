@@ -3,9 +3,12 @@ import { TouchableOpacity, Text } from 'react-native';
 
 import StyleCommon from 'themes';
 
-export default function Button({ label, colors, ...props }) {
+export default function Button({ label, colors, styleBtn, ...props }) {
   return (
-    <TouchableOpacity activeOpacity={0.8} {...props} style={styles.btn}>
+    <TouchableOpacity
+      activeOpacity={0.8}
+      {...props}
+      style={[styles.btn, styleBtn]}>
       <Text
         style={[
           StyleCommon.button,

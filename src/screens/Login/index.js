@@ -23,19 +23,16 @@ function Login({ navigation }) {
   const dispatch = useDispatch();
   const { colors } = useTheme();
   const { t } = useTranslation();
-  const [showPsw, setShowPsw] = useState(true);
-  const [isLoginFirebase, setIsLoginFirebase] = useState(false);
   const {
     handleSubmit,
     control,
     formState: { errors },
   } = useForm();
 
-  const isLoading = useSelector(state => state.login.isLoading);
+  const [showPsw, setShowPsw] = useState(true);
+  const [isLoginFirebase, setIsLoginFirebase] = useState(false);
 
-  const handleShowPassword = () => {
-    setShowPsw(!showPsw);
-  };
+  const isLoading = useSelector(state => state.login.isLoading);
 
   const onSubmit = data => {
     dispatch(loginActions.login(data));
@@ -106,7 +103,7 @@ function Login({ navigation }) {
                 iconLeft="unlock"
                 iconBegin="eye"
                 iconChanged="eyeo"
-                handleIconRight={handleShowPassword}
+                handleIconRight={() => setShowPsw(!showPsw)}
                 secureTextEntry={showPsw}
               />
             )}
