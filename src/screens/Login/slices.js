@@ -17,11 +17,7 @@ export const loginSlice = createSlice({
   name: loginSliceName,
   initialState,
   reducers: {
-    fetchUserInfo: (state, action) => ({
-      ...state,
-      isLoading: true,
-    }),
-    fetchUserInfoProcessing: (state, action) => ({
+    fetchUserInfoProcessing: state => ({
       ...state,
       isLoading: true,
     }),
