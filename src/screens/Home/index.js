@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { useTheme } from 'react-native-paper';
 
-import { videoList } from './mockData';
+// import { videoList } from './mockData';
 
 import StyleCommon from 'themes';
 
@@ -11,7 +11,7 @@ function Home() {
   const { colors } = useTheme();
 
   return (
-    <View
+    <SafeAreaView
       style={[
         StyleCommon.container,
         styles.homeScreen,
@@ -50,7 +50,7 @@ function Home() {
         )}
         keyExtractor={item => item.id}
       /> */}
-    </View>
+    </SafeAreaView>
   );
 }
 

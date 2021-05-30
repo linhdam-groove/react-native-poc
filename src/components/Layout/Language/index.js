@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import i18next from 'i18next';
 
-function Language() {
+function Language(props) {
   const paperTheme = useTheme();
   const [language, setLanguage] = useState('EN');
   const { colors } = paperTheme;
@@ -19,7 +19,7 @@ function Language() {
   };
 
   return (
-    <TouchableOpacity onPress={() => handleChangeLanguage()}>
+    <TouchableOpacity {...props} onPress={() => handleChangeLanguage()}>
       <Text
         style={[
           styles.btn,

@@ -1,5 +1,12 @@
 import React, { useContext, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+  SafeAreaView,
+} from 'react-native';
 import { TouchableRipple, useTheme, Switch } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
@@ -53,7 +60,7 @@ function Setting({ navigation }) {
     ]);
 
   return (
-    <View
+    <SafeAreaView
       style={[
         StyleCommon.container,
         styles.wrapper,
@@ -118,7 +125,7 @@ function Setting({ navigation }) {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 

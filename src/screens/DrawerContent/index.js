@@ -19,12 +19,13 @@ import { useTranslation } from 'react-i18next';
 import { loginActions } from 'screens/Login/slices';
 import { AuthContext } from 'components/Basic/Context';
 import { authLogout } from 'auth';
+import { SCREENS } from 'constants/common';
 
 export function DrawerContent(props) {
   const dispatch = useDispatch();
   const paperTheme = useTheme();
   const { colors } = paperTheme;
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { toggleTheme } = useContext(AuthContext);
   const { navigation } = props;
   const isFirebase = useSelector(state => state.login.firebase);
@@ -58,47 +59,43 @@ export function DrawerContent(props) {
           <Drawer.Section style={styles.drawerSection}>
             <DrawerItem
               icon={({ color, size }) => (
-                <Icon name="home" color={color} size={size} />
+                <Icon name="home" color={colors.primary} size={size} />
               )}
-              label="Home"
+              label={() => (
+                <Text style={{ color: colors.primary }}>
+                  {t('global.home')}
+                </Text>
+              )}
               onPress={() => {
-                props.navigation.navigate('Home');
+                props.navigation.navigate(SCREENS.HOME);
               }}
+              style={{ color: colors.primary }}
             />
             <DrawerItem
               icon={({ color, size }) => (
-                <IconIon name="ios-settings-sharp" color={color} size={size} />
+                <IconIon
+                  name="ios-settings-sharp"
+                  color={colors.primary}
+                  size={size}
+                />
               )}
-              label="Setting"
-              onPress={() => {
-                props.navigation.navigate('Setting');
-              }}
-            />
-            <DrawerItem
-              icon={({ color, size }) => (
-                <Icon name="account-check-outline" color={color} size={size} />
+              label={() => (
+                <Text style={{ color: colors.primary }}>
+                  {t('global.setting')}
+                </Text>
               )}
-              label="Login"
               onPress={() => {
-                props.navigation.navigate('Login');
-              }}
-            />
-            <DrawerItem
-              icon={({ color, size }) => (
-                <Icon name="account-check-outline" color={color} size={size} />
-              )}
-              label="Register"
-              onPress={() => {
-                props.navigation.navigate('Register');
+                props.navigation.navigate(SCREENS.SETTING);
               }}
             />
           </Drawer.Section>
-          <Drawer.Section title="Preferences">
+
+          <Drawer.Section title={t('global.preferences')}>
             <TouchableRipple
               onPress={() => {
                 toggleTheme();
               }}>
-              <View style={styles.preference}>
+              <View style={[styles.preference, { alignItems: 'center' }]}>
                 <Text style={{ color: colors.primary }}>
                   {t('global.darkTheme')}
                 </Text>
@@ -110,12 +107,13 @@ export function DrawerContent(props) {
           </Drawer.Section>
         </View>
       </DrawerContentScrollView>
+
       <Drawer.Section style={styles.bottomDrawerSection}>
         <DrawerItem
           icon={({ color, size }) => (
             <Icon name="exit-to-app" color={color} size={size} />
           )}
-          label="SIGN OUT"
+          label={t('global.signOut')}
           onPress={() => handleSignOut()}
         />
       </Drawer.Section>

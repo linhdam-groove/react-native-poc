@@ -82,7 +82,7 @@ function Register({ navigation }) {
             colors={colors}
             onChangeText={text => onChange(text)}
             value={value}
-            iconLeft="user"
+            iconLeft="person"
           />
         )}
       />
@@ -108,7 +108,7 @@ function Register({ navigation }) {
             colors={colors}
             onChangeText={text => onChange(text)}
             value={value}
-            iconLeft="user"
+            iconLeft="email"
           />
         )}
       />

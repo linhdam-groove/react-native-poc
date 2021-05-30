@@ -1,61 +1,34 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
   Dimensions,
   StyleSheet,
-  StatusBar,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useTheme } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
-import auth from '@react-native-firebase/auth';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 
 import { loginActions } from 'screens/Login/slices';
 
-const SplashScreen = ({ navigation }) => {
+const LaunchScreen = ({ navigation }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-
   const { colors } = useTheme();
-
-  // Set an initializing state whilst Firebase connects
-  // const [initializing, setInitializing] = useState(true);
-  // const [user, setUser] = useState();
-
-  const userCurrent = auth().currentUser;
+  const userCurrent = useSelector(state => state.login.userInfo);
 
   useEffect(() => {
     !isEmpty(userCurrent) &&
       dispatch(loginActions.loginSuccess({ userCurrent, firebase: true }));
   }, [dispatch, userCurrent]);
 
-  // Handle user state changes
-  // const onAuthStateChanged = useCallback(
-  //   user => {
-  //     setUser(user);
-
-  //     dispatch(loginActions.loginSuccess({ user, firebase: true }));
-  //     if (initializing) setInitializing(false);
-  //   },
-  //   [initializing, dispatch],
-  // );
-
-  // useEffect(() => {
-  //   const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-  //   return subscriber; // unsubscribe on unmount
-  // }, [onAuthStateChanged]);
-
-  // if (initializing) return null;
-
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor="#009387" barStyle="light-content" />
       <View style={styles.header}>
         <Animatable.Image
           animation="bounceIn"
@@ -98,7 +71,7 @@ const SplashScreen = ({ navigation }) => {
   );
 };
 
-export default SplashScreen;
+export default LaunchScreen;
 
 const { height } = Dimensions.get('screen');
 const height_logo = height * 0.1;

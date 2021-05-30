@@ -2,7 +2,7 @@ import auth from '@react-native-firebase/auth';
 
 export const authLogin = (data, onSuccess, onFail) =>
   auth()
-    .signInWithEmailAndPassword(data.username, data.password)
+    .signInWithEmailAndPassword(data.email, data.password)
     .then(res => {
       onSuccess(res.user);
     })

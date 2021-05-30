@@ -2,17 +2,18 @@ import React from 'react';
 
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Splash from 'screens/Splash';
+import Launch from 'screens/Launch';
 import Register from 'screens/Register';
 import Login from 'screens/Login';
+import { SCREENS } from 'constants/common';
 
 const Navigator = createStackNavigator();
 
-const RootStack = ({ navigation }) => (
+const RootStack = () => (
   <Navigator.Navigator headerMode="none">
-    <Navigator.Screen name="Splash" component={Splash} />
-    <Navigator.Screen name="Register" component={Register} />
-    <Navigator.Screen name="Login" component={Login} />
+    <Navigator.Screen name={SCREENS.LAUNCH} component={Launch} />
+    <Navigator.Screen name={SCREENS.REGISTER} component={Register} />
+    <Navigator.Screen name={SCREENS.LOGIN} component={Login} />
   </Navigator.Navigator>
 );
 

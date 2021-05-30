@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import {
   NavigationContainer,
@@ -12,6 +12,7 @@ import {
 } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
+import { StatusBar } from 'react-native';
 
 import Login from 'screens/Login';
 import Register from 'screens/Register';
@@ -20,6 +21,7 @@ import { AuthContext } from 'components/Basic/Context';
 import BottomTabs from 'components/Layout/BottomTabs';
 import RootStack from 'components/Layout/RootStack';
 import globalTheme from 'themes';
+import { SCREENS } from 'constants/common';
 
 const Drawer = createDrawerNavigator();
 
@@ -48,6 +50,7 @@ function Navigator() {
   };
 
   const theme = isDarkTheme ? customDarkTheme : customDefaultTheme;
+
   const authContext = useMemo(
     () => ({
       toggleTheme: () => {
@@ -60,13 +63,17 @@ function Navigator() {
   return (
     <PaperProvider theme={theme}>
       <AuthContext.Provider value={authContext}>
+        <StatusBar
+          barStyle={isDarkTheme ? 'dark-content' : 'light-content'}
+          backgroundColor={theme.icon}
+        />
         <NavigationContainer theme={theme}>
           {!isEmpty(userInfo) ? (
             <Drawer.Navigator
               drawerContent={props => <DrawerContent {...props} />}>
-              <Drawer.Screen name="Home" component={BottomTabs} />
-              <Drawer.Screen name="Login" component={Login} />
-              <Drawer.Screen name="Register" component={Register} />
+              <Drawer.Screen name={SCREENS.HOME} component={BottomTabs} />
+              <Drawer.Screen name={SCREENS.LOGIN} component={Login} />
+              <Drawer.Screen name={SCREENS.REGISTER} component={Register} />
             </Drawer.Navigator>
           ) : (
             <RootStack />

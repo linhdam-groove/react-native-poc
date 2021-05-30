@@ -6,7 +6,7 @@ export const SCREENS = {
   HOME: 'Home',
   REGISTER: 'Register',
   SETTING: 'Setting',
-  SPLASH: 'Splash',
+  LAUNCH: 'Launch',
 };
 
 export const ERROR_CODE = {

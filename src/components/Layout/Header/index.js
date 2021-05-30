@@ -3,9 +3,11 @@ import { Image, StyleSheet } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useTheme } from 'react-native-paper';
 import IconsMt from 'react-native-vector-icons/MaterialIcons';
+import { useTranslation } from 'react-i18next';
 
 import Home from 'screens/Home';
 import Setting from 'screens/Setting';
+import { SCREENS } from 'constants/common';
 
 import logo from 'assets/imgs/logo.png';
 
@@ -13,6 +15,7 @@ const Stack = createStackNavigator();
 
 function Header({ navigation }) {
   const { colors } = useTheme();
+  const { t } = useTranslation();
 
   return (
     <Stack.Navigator
@@ -24,7 +27,7 @@ function Header({ navigation }) {
           <IconsMt
             name={'menu'}
             size={30}
-            color={colors.iconInActive}
+            color={colors.primary}
             onPress={() => navigation.openDrawer()}
           />
         ),
@@ -32,11 +35,15 @@ function Header({ navigation }) {
         headerLeftContainerStyle: { paddingHorizontal: 15 },
       }}
       style={styles.header}>
-      <Stack.Screen name="Home" component={Home} options={{ title: 'Home' }} />
       <Stack.Screen
-        name="Setting"
+        name={SCREENS.HOME}
+        component={Home}
+        options={{ title: t('global.home') }}
+      />
+      <Stack.Screen
+        name={SCREENS.SETTING}
         component={Setting}
-        options={{ title: 'Setting' }}
+        options={{ title: t('global.setting') }}
       />
     </Stack.Navigator>
   );

@@ -6,7 +6,7 @@ const login = {
   createAccount: 'Create new account',
   firebase: 'Login with Firebase',
   required: {
-    username: 'Username is required',
+    email: 'Email is required',
     password: 'Password is required',
   },
   error: {

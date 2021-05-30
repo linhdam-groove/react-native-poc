@@ -4,7 +4,7 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  ActivityIndicator,
+  SafeAreaView,
 } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
@@ -33,9 +33,10 @@ function Login({ navigation }) {
   } = useForm();
 
   const [showPsw, setShowPsw] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   // const [isLoginFirebase, setIsLoginFirebase] = useState(false);
 
-  const isLoading = useSelector(state => state.login.isLoading);
+  // const isLoading = useSelector(state => state.login.isLoading);
 
   // const onSubmit = data => {
   //   dispatch(loginActions.login(data));
@@ -43,6 +44,7 @@ function Login({ navigation }) {
 
   const onSuccess = data => {
     dispatch(loginActions.loginSuccess({ data, firebase: true }));
+    setIsLoading(false);
   };
 
   const onFail = error => {
@@ -61,65 +63,54 @@ function Login({ navigation }) {
         text2: t('login.error.wrongPassword'),
       });
     }
+
+    setIsLoading(false);
   };
 
   const onLoginFirebase = data => {
+    setIsLoading(true);
     authLogin(data, onSuccess, onFail);
   };
 
   return (
-    <View
-      style={
-        [
-          // StyleCommon.container,
-          // StyleCommon.centerContent,
-          // styles.wrapper,
-          // { backgroundColor: colors.background, color: colors.text },
-        ]
-      }>
-      {isLoading ? (
-        <ActivityIndicator size="large" />
-      ) : (
-        <>
-          <View>
-            <Language />
-          </View>
-          <View
-            style={[
-              StyleCommon.container,
-              StyleCommon.centerContent,
-              styles.wrapper,
-              { backgroundColor: colors.background, color: colors.text },
-            ]}>
-            <Text style={[styles.title, { color: colors.primary }]}>
-              {t('login.signIn')}
-            </Text>
+    <SafeAreaView>
+      <View
+        style={[
+          StyleCommon.container,
+          StyleCommon.centerContent,
+          styles.wrapper,
+          { backgroundColor: colors.background, color: colors.text },
+        ]}>
+        <Text style={[styles.title, { color: colors.primary }]}>
+          {t('login.signIn')}
+        </Text>
 
-            <Controller
-              name="username"
-              control={control}
-              rules={{
-                required: {
-                  value: true,
-                  message: t('login.required.username'),
-                },
-                pattern: {
-                  value: EMAIL_REGEX,
-                  message: t('register.invalid.email'),
-                },
-              }}
-              render={({ field: { onChange, value } }) => (
-                <Input
-                  error={errors.username}
-                  errorText={errors?.username?.message}
-                  colors={colors}
-                  onChangeText={text => onChange(text)}
-                  value={value}
-                  iconLeft="user"
-                />
-              )}
+        <Controller
+          name="email"
+          control={control}
+          rules={{
+            required: {
+              value: true,
+              message: t('login.required.email'),
+            },
+            pattern: {
+              value: EMAIL_REGEX,
+              message: t('register.invalid.email'),
+            },
+          }}
+          render={({ field: { onChange, value } }) => (
+            <Input
+              placeholder={t('register.email')}
+              error={errors.email}
+              errorText={errors?.email?.message}
+              colors={colors}
+              onChangeText={text => onChange(text)}
+              value={value}
+              iconLeft="email"
             />
-            {/* <Controller
+          )}
+        />
+        {/* <Controller
               name="username"
               control={control}
               rules={{
@@ -140,45 +131,46 @@ function Login({ navigation }) {
               )}
             /> */}
 
-            <Controller
-              defaultValue=""
-              control={control}
-              rules={{
-                required: {
-                  value: true,
-                  message: t('login.required.password'),
-                },
-                minLength: {
-                  value: 8,
-                  message: t('register.invalid.minLengthPsw'),
-                },
-              }}
-              render={({ field: { onChange, value } }) => (
-                <Password
-                  error={errors.password}
-                  errorText={errors?.password?.message}
-                  colors={colors}
-                  onChangeText={text => onChange(text)}
-                  value={value}
-                  iconRight
-                  optionsIcon={showPsw}
-                  iconLeft="unlock"
-                  iconBegin="eye"
-                  iconChanged="eyeo"
-                  handleIconRight={() => setShowPsw(!showPsw)}
-                  secureTextEntry={showPsw}
-                />
-              )}
-              name="password"
+        <Controller
+          defaultValue=""
+          control={control}
+          rules={{
+            required: {
+              value: true,
+              message: t('login.required.password'),
+            },
+            minLength: {
+              value: 8,
+              message: t('register.invalid.minLengthPsw'),
+            },
+          }}
+          render={({ field: { onChange, value } }) => (
+            <Password
+              placeholder={t('register.password')}
+              error={errors.password}
+              errorText={errors?.password?.message}
+              colors={colors}
+              onChangeText={text => onChange(text)}
+              value={value}
+              iconRight
+              optionsIcon={showPsw}
+              iconLeft="unlock"
+              iconBegin="eye"
+              iconChanged="eyeo"
+              handleIconRight={() => setShowPsw(!showPsw)}
+              secureTextEntry={showPsw}
             />
+          )}
+          name="password"
+        />
 
-            <TouchableOpacity style={[styles.forgot]}>
-              <Text style={{ fontWeight: 'bold', color: colors.primary }}>
-                {t('login.forgotPsw')}
-              </Text>
-            </TouchableOpacity>
+        <TouchableOpacity style={[styles.forgot]}>
+          <Text style={{ fontWeight: 'bold', color: colors.primary }}>
+            {t('login.forgotPsw')}
+          </Text>
+        </TouchableOpacity>
 
-            {/* <TouchableOpacity
+        {/* <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => setIsLoginFirebase(!isLoginFirebase)}>
             <View style={styles.firebase}>
@@ -198,28 +190,34 @@ function Login({ navigation }) {
             </View>
           </TouchableOpacity> */}
 
-            <Button
-              colors={colors}
-              label={t('login.signIn')}
-              onPress={handleSubmit(onLoginFirebase)}
-            />
+        <Button
+          colors={colors}
+          label={t('login.signIn')}
+          onPress={handleSubmit(onLoginFirebase)}
+          activeIndicator={isLoading}
+        />
 
-            <TouchableOpacity
-              activeOpacity={0.8}
-              style={[styles.createAcc, { color: colors.primary }]}
-              onPress={() => navigation.navigate(SCREENS.REGISTER)}>
-              <Text style={{ color: colors.primary }}>
-                {t('login.haveAccount')}
-              </Text>
-              <Text style={[styles.createNew, { color: colors.primary }]}>
-                {' '}
-                {t('login.createAccount')}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </>
-      )}
-    </View>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          style={[styles.createAcc, { color: colors.primary }]}
+          onPress={() => navigation.navigate(SCREENS.REGISTER)}>
+          <Text style={{ color: colors.primary }}>
+            {t('login.haveAccount')}
+          </Text>
+          <Text style={[styles.createNew, { color: colors.primary }]}>
+            {' '}
+            {t('login.createAccount')}
+          </Text>
+        </TouchableOpacity>
+
+        <View style={styles.language}>
+          <Text style={{ fontWeight: 'bold', color: colors.primary }}>
+            {t('global.chooseLanguage')}:{' '}
+          </Text>
+          <Language style={styles.select} />
+        </View>
+      </View>
+    </SafeAreaView>
   );
 }
 
@@ -259,6 +257,18 @@ const styles = StyleSheet.create({
   },
   firebaseText: {
     marginRight: 10,
+  },
+  language: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  select: {
+    width: 55,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    overflow: 'hidden',
   },
 });
 

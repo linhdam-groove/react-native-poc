@@ -6,7 +6,7 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
+import IconAntDesign from 'react-native-vector-icons/MaterialIcons';
 
 import StyleCommon from 'themes';
 
@@ -30,7 +30,7 @@ const Input = ({
         ]}>
         {iconLeft && (
           <IconAntDesign
-            color={colors.primary}
+            color={colors.labelBtn}
             name={iconLeft}
             size={20}
             style={StyleCommon.iconInput}

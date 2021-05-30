@@ -1,4 +1,6 @@
 const global = {
+  home: 'Home',
+  setting: 'Setting',
   darkTheme: 'Dark theme',
   language: 'Language',
   signOut: 'Sign out',
@@ -9,6 +11,8 @@ const global = {
   yes: 'Yes',
   no: 'No',
   logoutSuccess: 'Logout Successfully!',
+  chooseLanguage: 'Choose your Language',
+  preferences: 'Preferences',
 };
 
 export { global };

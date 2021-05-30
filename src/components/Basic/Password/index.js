@@ -33,7 +33,7 @@ const Input = ({
         ]}>
         {iconLeft && (
           <IconAntDesign
-            color={colors.primary}
+            color={colors.labelBtn}
             name={iconLeft}
             size={20}
             style={StyleCommon.iconInput}
@@ -48,7 +48,7 @@ const Input = ({
         {iconRight && (
           <TouchableOpacity onPress={handleIconRight}>
             <IconAntDesign
-              color={colors.primary}
+              color={colors.labelBtn}
               name={optionsIcon ? 'eye' : 'eyeo'}
               size={20}
               style={StyleCommon.iconInput}
