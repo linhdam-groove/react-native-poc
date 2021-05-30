@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from 'react-native';
-import { useTheme, Switch } from 'react-native-paper';
+import { useTheme } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
@@ -19,6 +19,7 @@ import { authLogin } from 'auth';
 import Input from 'components/Basic/Input';
 import Password from 'components/Basic/Password';
 import Button from 'components/Basic/Button';
+import Language from 'components/Layout/Language';
 import StyleCommon from 'themes';
 
 function Login({ navigation }) {
@@ -32,13 +33,13 @@ function Login({ navigation }) {
   } = useForm();
 
   const [showPsw, setShowPsw] = useState(true);
-  const [isLoginFirebase, setIsLoginFirebase] = useState(false);
+  // const [isLoginFirebase, setIsLoginFirebase] = useState(false);
 
   const isLoading = useSelector(state => state.login.isLoading);
 
-  const onSubmit = data => {
-    dispatch(loginActions.login(data));
-  };
+  // const onSubmit = data => {
+  //   dispatch(loginActions.login(data));
+  // };
 
   const onSuccess = data => {
     dispatch(loginActions.loginSuccess({ data, firebase: true }));
@@ -68,21 +69,32 @@ function Login({ navigation }) {
 
   return (
     <View
-      style={[
-        StyleCommon.container,
-        StyleCommon.centerContent,
-        styles.wrapper,
-        { backgroundColor: colors.background, color: colors.text },
-      ]}>
+      style={
+        [
+          // StyleCommon.container,
+          // StyleCommon.centerContent,
+          // styles.wrapper,
+          // { backgroundColor: colors.background, color: colors.text },
+        ]
+      }>
       {isLoading ? (
         <ActivityIndicator size="large" />
       ) : (
         <>
-          <Text style={[styles.title, { color: colors.primary }]}>
-            {t('login.signIn')}
-          </Text>
+          <View>
+            <Language />
+          </View>
+          <View
+            style={[
+              StyleCommon.container,
+              StyleCommon.centerContent,
+              styles.wrapper,
+              { backgroundColor: colors.background, color: colors.text },
+            ]}>
+            <Text style={[styles.title, { color: colors.primary }]}>
+              {t('login.signIn')}
+            </Text>
 
-          {isLoginFirebase ? (
             <Controller
               name="username"
               control={control}
@@ -107,8 +119,7 @@ function Login({ navigation }) {
                 />
               )}
             />
-          ) : (
-            <Controller
+            {/* <Controller
               name="username"
               control={control}
               rules={{
@@ -127,41 +138,47 @@ function Login({ navigation }) {
                   iconLeft="user"
                 />
               )}
+            /> */}
+
+            <Controller
+              defaultValue=""
+              control={control}
+              rules={{
+                required: {
+                  value: true,
+                  message: t('login.required.password'),
+                },
+                minLength: {
+                  value: 8,
+                  message: t('register.invalid.minLengthPsw'),
+                },
+              }}
+              render={({ field: { onChange, value } }) => (
+                <Password
+                  error={errors.password}
+                  errorText={errors?.password?.message}
+                  colors={colors}
+                  onChangeText={text => onChange(text)}
+                  value={value}
+                  iconRight
+                  optionsIcon={showPsw}
+                  iconLeft="unlock"
+                  iconBegin="eye"
+                  iconChanged="eyeo"
+                  handleIconRight={() => setShowPsw(!showPsw)}
+                  secureTextEntry={showPsw}
+                />
+              )}
+              name="password"
             />
-          )}
 
-          <Controller
-            defaultValue=""
-            control={control}
-            rules={{
-              required: { value: true, message: t('login.required.password') },
-            }}
-            render={({ field: { onChange, value } }) => (
-              <Password
-                error={errors.password}
-                errorText={errors?.password?.message}
-                colors={colors}
-                onChangeText={text => onChange(text)}
-                value={value}
-                iconRight
-                optionsIcon={showPsw}
-                iconLeft="unlock"
-                iconBegin="eye"
-                iconChanged="eyeo"
-                handleIconRight={() => setShowPsw(!showPsw)}
-                secureTextEntry={showPsw}
-              />
-            )}
-            name="password"
-          />
+            <TouchableOpacity style={[styles.forgot]}>
+              <Text style={{ fontWeight: 'bold', color: colors.primary }}>
+                {t('login.forgotPsw')}
+              </Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity style={[styles.forgot]}>
-            <Text style={{ fontWeight: 'bold', color: colors.primary }}>
-              {t('login.forgotPsw')}
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
+            {/* <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => setIsLoginFirebase(!isLoginFirebase)}>
             <View style={styles.firebase}>
@@ -179,30 +196,27 @@ function Login({ navigation }) {
                 <Switch value={isLoginFirebase} />
               </View>
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
-          <Button
-            colors={colors}
-            label={t('login.signIn')}
-            onPress={
-              isLoginFirebase
-                ? handleSubmit(onLoginFirebase)
-                : handleSubmit(onSubmit)
-            }
-          />
+            <Button
+              colors={colors}
+              label={t('login.signIn')}
+              onPress={handleSubmit(onLoginFirebase)}
+            />
 
-          <TouchableOpacity
-            activeOpacity={0.8}
-            style={[styles.createAcc, { color: colors.primary }]}
-            onPress={() => navigation.navigate(SCREENS.REGISTER)}>
-            <Text style={{ color: colors.primary }}>
-              {t('login.haveAccount')}
-            </Text>
-            <Text style={[styles.createNew, { color: colors.primary }]}>
-              {' '}
-              {t('login.createAccount')}
-            </Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              style={[styles.createAcc, { color: colors.primary }]}
+              onPress={() => navigation.navigate(SCREENS.REGISTER)}>
+              <Text style={{ color: colors.primary }}>
+                {t('login.haveAccount')}
+              </Text>
+              <Text style={[styles.createNew, { color: colors.primary }]}>
+                {' '}
+                {t('login.createAccount')}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </>
       )}
     </View>
