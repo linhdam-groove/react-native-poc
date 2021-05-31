@@ -10,7 +10,7 @@ import {
   TouchableRipple,
   Switch,
 } from 'react-native-paper';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconIon from 'react-native-vector-icons/Ionicons';
@@ -28,11 +28,11 @@ export function DrawerContent(props) {
   const { t } = useTranslation();
   const { toggleTheme } = useContext(AuthContext);
   const { navigation } = props;
-  const isFirebase = useSelector(state => state.login.firebase);
+  // const isFirebase = useSelector(state => state.login.firebase);
 
   const handleSignOut = () => {
     dispatch(loginActions.resetReducer());
-    isFirebase && authLogout(navigation);
+    authLogout(navigation);
     navigation.navigate('Login');
   };
 

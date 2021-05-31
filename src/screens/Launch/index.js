@@ -11,20 +11,22 @@ import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useTheme } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
+import auth from '@react-native-firebase/auth';
 
 import { loginActions } from 'screens/Login/slices';
+import { SCREENS } from 'constants/common';
+import logo from 'assets/imgs/logo.png';
 
 const LaunchScreen = ({ navigation }) => {
-  const { t } = useTranslation();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const { colors } = useTheme();
-  const userCurrent = useSelector(state => state.login.userInfo);
+  const userCurrent = auth().currentUser;
 
   useEffect(() => {
-    !isEmpty(userCurrent) &&
-      dispatch(loginActions.loginSuccess({ userCurrent, firebase: true }));
+    !isEmpty(userCurrent) && dispatch(loginActions.loginSuccess(userCurrent));
   }, [dispatch, userCurrent]);
 
   return (
@@ -33,7 +35,7 @@ const LaunchScreen = ({ navigation }) => {
         <Animatable.Image
           animation="bounceIn"
           duration={1000}
-          source={require('assets/imgs/logo.png')}
+          source={logo}
           style={styles.logo}
           resizeMode="stretch"
         />
@@ -57,7 +59,7 @@ const LaunchScreen = ({ navigation }) => {
         </Text>
         <Text style={styles.text}>{t('global.signInWithAcc')}</Text>
         <View style={styles.button}>
-          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+          <TouchableOpacity onPress={() => navigation.navigate(SCREENS.LOGIN)}>
             <LinearGradient
               colors={['#82ccdd', '#0a3d62']}
               style={styles.signIn}>
