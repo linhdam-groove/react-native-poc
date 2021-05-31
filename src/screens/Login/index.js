@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,9 +8,11 @@ import {
 } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import Toast from 'react-native-toast-message';
+import auth from '@react-native-firebase/auth';
+import isEmpty from 'lodash/isEmpty';
 
 import { loginActions } from './slices';
 
@@ -35,8 +37,11 @@ function Login({ navigation }) {
   const [showPsw, setShowPsw] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   // const [isLoginFirebase, setIsLoginFirebase] = useState(false);
+  const userCurrent = auth().currentUser;
 
-  // const isLoading = useSelector(state => state.login.isLoading);
+  useEffect(() => {
+    !isEmpty(userCurrent) && navigation.navigate('Home');
+  }, [userCurrent, navigation]);
 
   // const onSubmit = data => {
   //   dispatch(loginActions.login(data));

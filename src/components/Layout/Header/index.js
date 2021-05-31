@@ -22,8 +22,12 @@ function Header({ navigation }) {
       headerMode="screen"
       screenOptions={{
         headerTintColor: 'white',
-        headerStyle: { backgroundColor: colors.headerBg },
-        headerLeft: props => (
+        headerStyle: {
+          backgroundColor: colors.headerBg,
+        },
+        headerTitleAlign: 'center',
+        headerTitle: () => <Image source={logo} style={styles.logo} />,
+        headerLeft: () => (
           <IconsMt
             name={'menu'}
             size={30}
@@ -31,8 +35,9 @@ function Header({ navigation }) {
             onPress={() => navigation.openDrawer()}
           />
         ),
-        headerTitle: () => <Image source={logo} style={styles.logo} />,
-        headerLeftContainerStyle: { paddingHorizontal: 15 },
+        headerLeftContainerStyle: {
+          paddingHorizontal: 15,
+        },
       }}
       style={styles.header}>
       <Stack.Screen

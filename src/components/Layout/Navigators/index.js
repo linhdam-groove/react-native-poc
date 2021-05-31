@@ -65,7 +65,7 @@ function Navigator() {
       <AuthContext.Provider value={authContext}>
         <StatusBar
           barStyle={isDarkTheme ? 'dark-content' : 'light-content'}
-          backgroundColor={theme.icon}
+          backgroundColor={theme.background}
         />
         <NavigationContainer theme={theme}>
           {!isEmpty(userInfo) ? (

@@ -27,7 +27,11 @@ export default function Button({
       ]}>
       <View style={[styles.wrapperBtn, StyleCommon.button]}>
         {activeIndicator && (
-          <ActivityIndicator size="small" style={{ marginRight: 10 }} />
+          <ActivityIndicator
+            size="small"
+            color={colors.primary}
+            style={{ marginRight: 10 }}
+          />
         )}
         <Text
           style={[

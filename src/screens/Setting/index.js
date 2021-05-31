@@ -15,6 +15,7 @@ import IconFeather from 'react-native-vector-icons/Feather';
 import { useSelector, useDispatch } from 'react-redux';
 
 import StyleCommon from 'themes';
+import Language from 'components/Layout/Language';
 import { AuthContext } from 'components/Basic/Context';
 import { loginActions } from 'screens/Login/slices';
 import { authLogout } from 'auth';
@@ -27,17 +28,17 @@ function Setting({ navigation }) {
   const { t } = useTranslation();
   const isFirebase = useSelector(state => state.login.firebase);
 
-  const [language, setLanguage] = useState('EN');
+  // const [language, setLanguage] = useState('EN');
 
-  const handleChangeLanguage = () => {
-    if (i18next.language === 'en') {
-      i18next.changeLanguage('vi');
-      setLanguage('VI');
-    } else {
-      i18next.changeLanguage('en');
-      setLanguage('EN');
-    }
-  };
+  // const handleChangeLanguage = () => {
+  //   if (i18next.language === 'en') {
+  //     i18next.changeLanguage('vi');
+  //     setLanguage('VI');
+  //   } else {
+  //     i18next.changeLanguage('en');
+  //     setLanguage('EN');
+  //   }
+  // };
 
   const onPressSignOut = text => {
     dispatch(loginActions.resetReducer());
@@ -98,26 +99,15 @@ function Setting({ navigation }) {
             </Text>
           </View>
 
-          <TouchableOpacity onPress={() => handleChangeLanguage()}>
-            <Text
-              style={[
-                styles.btn,
-                {
-                  color: colors.labelBtn,
-                  backgroundColor: colors.backgroundBtn,
-                },
-              ]}>
-              {language}
-            </Text>
-          </TouchableOpacity>
+          <View>
+            <Language />
+          </View>
         </View>
       </View>
 
       <View>
         <View style={styles.preference}>
-          <TouchableOpacity
-            style={styles.signOut}
-            onPress={() => handleSignOut()}>
+          <TouchableOpacity style={styles.signOut} onPress={handleSignOut}>
             <Text style={[styles.signOutText, { color: colors.primary }]}>
               {t('global.signOut')}
             </Text>

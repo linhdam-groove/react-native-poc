@@ -20,6 +20,10 @@ function BottomTabs() {
       tabBarOptions={{
         activeTintColor: colors.iconActive,
         inactiveTintColor: colors.icon,
+        style: {
+          backgroundColor: colors.background,
+          paddingVertical: 5,
+        },
       }}>
       <Tab.Screen
         name={t('global.home')}
@@ -54,6 +58,7 @@ function BottomTabs() {
 const styles = StyleSheet.create({
   tabNavigator: {
     fontWeight: 'bold',
+    backgroundColor: 'red',
   },
 });
 

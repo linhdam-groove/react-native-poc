@@ -5,7 +5,9 @@ import i18next from 'i18next';
 
 function Language(props) {
   const paperTheme = useTheme();
-  const [language, setLanguage] = useState('EN');
+  const [language, setLanguage] = useState(
+    i18next.language === 'en' ? 'EN' : 'VI',
+  );
   const { colors } = paperTheme;
 
   const handleChangeLanguage = () => {
@@ -19,7 +21,7 @@ function Language(props) {
   };
 
   return (
-    <TouchableOpacity {...props} onPress={() => handleChangeLanguage()}>
+    <TouchableOpacity {...props} onPress={handleChangeLanguage}>
       <Text
         style={[
           styles.btn,

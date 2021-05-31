@@ -4,6 +4,7 @@ import { WebView } from 'react-native-webview';
 import { useTheme } from 'react-native-paper';
 
 // import { videoList } from './mockData';
+import { YOUTUBE_URI } from 'constants/apiUrl';
 
 import StyleCommon from 'themes';
 
@@ -26,7 +27,7 @@ function Home() {
           allowsFullscreenVideo={false}
           allowsInlineMediaPlayback={true}
           source={{
-            uri: 'https://www.youtube.com/watch?v=gb0fhDfMAxw&list=RDMM&start_radio=1&rv=fbmvNG13M7Y?playsinline=1',
+            uri: YOUTUBE_URI,
           }}
         />
       </View>
