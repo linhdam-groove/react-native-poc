@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import {
   View,
   Text,
@@ -9,10 +9,9 @@ import {
 } from 'react-native';
 import { TouchableRipple, useTheme, Switch } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
-import i18next from 'i18next';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconFeather from 'react-native-vector-icons/Feather';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import StyleCommon from 'themes';
 import Language from 'components/Layout/Language';
@@ -26,23 +25,10 @@ function Setting({ navigation }) {
   const { colors } = paperTheme;
   const { toggleTheme } = useContext(AuthContext);
   const { t } = useTranslation();
-  const isFirebase = useSelector(state => state.login.firebase);
-
-  // const [language, setLanguage] = useState('EN');
-
-  // const handleChangeLanguage = () => {
-  //   if (i18next.language === 'en') {
-  //     i18next.changeLanguage('vi');
-  //     setLanguage('VI');
-  //   } else {
-  //     i18next.changeLanguage('en');
-  //     setLanguage('EN');
-  //   }
-  // };
 
   const onPressSignOut = text => {
     dispatch(loginActions.resetReducer());
-    isFirebase && authLogout(navigation);
+    authLogout(navigation);
     navigation.navigate('Login');
     Alert.alert(text);
   };

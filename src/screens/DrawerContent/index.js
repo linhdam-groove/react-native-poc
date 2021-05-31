@@ -33,7 +33,7 @@ export function DrawerContent(props) {
   const handleSignOut = () => {
     dispatch(loginActions.resetReducer());
     authLogout(navigation);
-    navigation.navigate('Login');
+    navigation.navigate(SCREENS.LOGIN);
   };
 
   return (
@@ -67,7 +67,7 @@ export function DrawerContent(props) {
                 </Text>
               )}
               onPress={() => {
-                props.navigation.navigate(SCREENS.HOME);
+                navigation.navigate(SCREENS.HOME);
               }}
               style={{ color: colors.primary }}
             />
@@ -85,7 +85,7 @@ export function DrawerContent(props) {
                 </Text>
               )}
               onPress={() => {
-                props.navigation.navigate(SCREENS.SETTING);
+                navigation.navigate(SCREENS.SETTING);
               }}
             />
           </Drawer.Section>

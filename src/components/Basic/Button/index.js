@@ -29,7 +29,7 @@ export default function Button({
         {activeIndicator && (
           <ActivityIndicator
             size="small"
-            color={colors.primary}
+            color={colors.labelBtn}
             style={{ marginRight: 10 }}
           />
         )}
